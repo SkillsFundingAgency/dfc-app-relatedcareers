@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DFC.App.RelatedCareers.Data\DFC.App.RelatedCareers.Data.csproj" />
+    <ProjectReference Include="..\DFC.App.RelatedCareers.DraftSegmentService\DFC.App.RelatedCareers.DraftSegmentService.csproj" />
+    <ProjectReference Include="..\DFC.App.RelatedCareers.Repository.CosmosDb\DFC.App.RelatedCareers.Repository.CosmosDb.csproj" />
+  </ItemGroup>
+
+</Project>
