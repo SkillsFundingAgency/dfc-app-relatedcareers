@@ -11,16 +11,17 @@ namespace DFC.App.RelatedCareers.IntegrationTests.ControllerTests
     [Trait("Integration Tests", "Segment Controller Tests")]
     public class SegmentControllerRouteTests : IClassFixture<CustomWebApplicationFactory<Startup>>
     {
-        private const string DefaultArticleName = "segment-article";
+        private const string DefaultArticleName = "nurse";
 
         private readonly CustomWebApplicationFactory<Startup> factory;
 
         public SegmentControllerRouteTests(CustomWebApplicationFactory<Startup> factory)
         {
             this.factory = factory;
+            DataSeeding.SeedDefaultArticle(factory, DefaultArticleName);
         }
 
-        public static IEnumerable<object[]> SegmentContentRouteData => new List<object[]>
+        public static IEnumerable<object[]> SegmentDocumentRouteData => new List<object[]>
         {
             new object[] { "/Segment" },
             new object[] { $"/Segment/{DefaultArticleName}" },
@@ -31,9 +32,15 @@ namespace DFC.App.RelatedCareers.IntegrationTests.ControllerTests
             new object[] { $"/Segment/invalid-segment-name" },
         };
 
+        public static IEnumerable<object[]> SegmentBodyRouteData => new List<object[]>
+        {
+            new object[] { $"/Segment/{DefaultArticleName}/contents", MediaTypeNames.Application.Json },
+            new object[] { $"/Segment/{DefaultArticleName}/contents", MediaTypeNames.Text.Html },
+        };
+
         [Theory]
-        [MemberData(nameof(SegmentContentRouteData))]
-        public async Task GetSegmentHtmlContentEndpointsReturnSuccessAndCorrectContentType(string url)
+        [MemberData(nameof(SegmentDocumentRouteData))]
+        public async Task GetSegmentDocumentEndpointsReturnSuccessAndCorrectContentType(string url)
         {
             // Arrange
             var uri = new Uri(url, UriKind.Relative);
@@ -50,7 +57,7 @@ namespace DFC.App.RelatedCareers.IntegrationTests.ControllerTests
 
         [Theory]
         [MemberData(nameof(MissingSegmentContentRouteData))]
-        public async Task GetSegmentHtmlContentEndpointsReturnNoContent(string url)
+        public async Task GetSegmentDocumentEndpointsReturnNoContent(string url)
         {
             // Arrange
             var uri = new Uri(url, UriKind.Relative);
@@ -62,6 +69,24 @@ namespace DFC.App.RelatedCareers.IntegrationTests.ControllerTests
 
             // Assert
             Assert.Equal(HttpStatusCode.NoContent, response.StatusCode);
+        }
+
+        [Theory]
+        [MemberData(nameof(SegmentBodyRouteData))]
+        public async Task GetSegmentBodyEndpointReturnsSuccessAndCorrectContentType(string url, string mediaType)
+        {
+            // Arrange
+            var uri = new Uri(url, UriKind.Relative);
+            var client = factory.CreateClient();
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue(mediaType));
+
+            // Act
+            var response = await client.GetAsync(uri).ConfigureAwait(false);
+
+            // Assert
+            response.EnsureSuccessStatusCode();
+            Assert.Equal($"{mediaType}; charset={Encoding.UTF8.WebName}", response.Content.Headers.ContentType.ToString());
         }
     }
 }

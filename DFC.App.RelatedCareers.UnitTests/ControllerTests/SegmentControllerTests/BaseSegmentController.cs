@@ -25,6 +25,16 @@ namespace DFC.App.RelatedCareers.UnitTests.ControllerTests.SegmentControllerTest
             new object[] { MediaTypeNames.Text.Html },
         };
 
+        public static IEnumerable<object[]> InvalidMediaTypes => new List<object[]>
+        {
+            new object[] { MediaTypeNames.Text.Plain },
+        };
+
+        public static IEnumerable<object[]> JsonMediaTypes => new List<object[]>
+        {
+            new object[] { MediaTypeNames.Application.Json },
+        };
+
         protected ILogger<SegmentController> FakeLogger { get; }
 
         protected IRelatedCareersSegmentService FakeRelatedCareersSegmentService { get; }

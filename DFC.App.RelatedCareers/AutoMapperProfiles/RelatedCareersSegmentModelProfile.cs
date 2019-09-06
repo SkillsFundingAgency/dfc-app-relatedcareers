@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using DFC.App.RelatedCareers.Data.Models;
 using DFC.App.RelatedCareers.ViewModels;
-using Microsoft.AspNetCore.Html;
 
 namespace DFC.App.RelatedCareers.AutoMapperProfiles
 {
@@ -9,9 +8,9 @@ namespace DFC.App.RelatedCareers.AutoMapperProfiles
     {
         public RelatedCareersSegmentModelProfile()
         {
-            CreateMap<RelatedCareersSegmentModel, DocumentViewModel>()
-                .ForMember(d => d.Content, s => s.MapFrom(a => new HtmlString(a.Content)));
-
+            CreateMap<RelatedCareerDataModel, RelatedCareerDataViewModel>();
+            CreateMap<RelatedCareerSegmentDataModel, DocumentDataViewModel>();
+            CreateMap<RelatedCareersSegmentModel, DocumentViewModel>();
             CreateMap<RelatedCareersSegmentModel, IndexDocumentViewModel>();
         }
     }

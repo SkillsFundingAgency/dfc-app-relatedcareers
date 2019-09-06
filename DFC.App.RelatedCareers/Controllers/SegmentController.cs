@@ -53,7 +53,6 @@ namespace DFC.App.RelatedCareers.Controllers
             logger.LogInformation($"{nameof(Document)} has been called with: {article}");
 
             var relatedCareersSegmentModel = await relatedCareersSegmentService.GetByNameAsync(article, Request.IsDraftRequest()).ConfigureAwait(false);
-
             if (relatedCareersSegmentModel != null)
             {
                 var viewModel = mapper.Map<DocumentViewModel>(relatedCareersSegmentModel);
@@ -61,6 +60,27 @@ namespace DFC.App.RelatedCareers.Controllers
                 logger.LogInformation($"{nameof(Document)} has succeeded for: {article}");
 
                 return View(viewModel);
+            }
+
+            logger.LogWarning($"{nameof(Document)} has returned no content for: {article}");
+
+            return NoContent();
+        }
+
+        [HttpGet]
+        [Route("segment/{article}/contents")]
+        public async Task<IActionResult> Body(string article)
+        {
+            logger.LogInformation($"{nameof(Document)} has been called with: {article}");
+
+            var relatedCareersSegmentModel = await relatedCareersSegmentService.GetByNameAsync(article, Request.IsDraftRequest()).ConfigureAwait(false);
+            if (relatedCareersSegmentModel != null)
+            {
+                var viewModel = mapper.Map<DocumentViewModel>(relatedCareersSegmentModel);
+
+                logger.LogInformation($"{nameof(Document)} has succeeded for: {article}");
+
+                return this.NegotiateContentResult(viewModel);
             }
 
             logger.LogWarning($"{nameof(Document)} has returned no content for: {article}");
