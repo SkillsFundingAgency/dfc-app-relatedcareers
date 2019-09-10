@@ -29,7 +29,7 @@ namespace DFC.App.RelatedCareers.IntegrationTests
                     CanonicalName = article,
                     Data = new RelatedCareerSegmentDataModel
                     {
-                        LastReviewed = DateTime.UtcNow,
+                        Updated = DateTime.UtcNow,
                         RelatedCareers = new List<RelatedCareerDataModel>
                         {
                             new RelatedCareerDataModel
@@ -37,12 +37,14 @@ namespace DFC.App.RelatedCareers.IntegrationTests
                                 DocumentId = Job2ArticleGuid,
                                 CanonicalName = Job2CanonicalName,
                                 Title = Job2Title,
+                                Updated = DateTime.UtcNow,
                             },
                             new RelatedCareerDataModel
                             {
                                 DocumentId = Job3ArticleGuid,
                                 CanonicalName = Job3CanonicalName,
                                 Title = Job3Title,
+                                Updated = DateTime.UtcNow,
                             },
                         },
                     },
@@ -54,7 +56,7 @@ namespace DFC.App.RelatedCareers.IntegrationTests
                     CanonicalName = Job2CanonicalName,
                     Data = new RelatedCareerSegmentDataModel
                     {
-                        LastReviewed = DateTime.UtcNow,
+                        Updated = DateTime.UtcNow,
                         RelatedCareers = new List<RelatedCareerDataModel>
                         {
                             new RelatedCareerDataModel
@@ -62,12 +64,14 @@ namespace DFC.App.RelatedCareers.IntegrationTests
                                 DocumentId = MainArticleGuid,
                                 CanonicalName = article,
                                 Title = article,
+                                Updated = DateTime.UtcNow,
                             },
                             new RelatedCareerDataModel
                             {
                                 DocumentId = Job3ArticleGuid,
                                 CanonicalName = Job3CanonicalName,
                                 Title = Job3Title,
+                                Updated = DateTime.UtcNow,
                             },
                         },
                     },
@@ -79,7 +83,7 @@ namespace DFC.App.RelatedCareers.IntegrationTests
                     CanonicalName = Job3CanonicalName,
                     Data = new RelatedCareerSegmentDataModel
                     {
-                        LastReviewed = DateTime.UtcNow,
+                        Updated = DateTime.UtcNow,
                         RelatedCareers = new List<RelatedCareerDataModel>
                         {
                             new RelatedCareerDataModel
@@ -87,12 +91,14 @@ namespace DFC.App.RelatedCareers.IntegrationTests
                                 DocumentId = MainArticleGuid,
                                 CanonicalName = article,
                                 Title = article,
+                                Updated = DateTime.UtcNow,
                             },
                             new RelatedCareerDataModel
                             {
                                 DocumentId = Job2ArticleGuid,
                                 CanonicalName = Job2CanonicalName,
                                 Title = Job2Title,
+                                Updated = DateTime.UtcNow,
                             },
                         },
                     },

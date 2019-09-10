@@ -11,6 +11,10 @@ namespace DFC.App.RelatedCareers.ViewModels
         [Display(Name = "Canonical Name")]
         public string CanonicalName { get; set; }
 
+        public DateTime Created { get; set; }
+
+        public DateTime Updated { get; set; }
+
         public DocumentDataViewModel Data { get; set; }
     }
 }
