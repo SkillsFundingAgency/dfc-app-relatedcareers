@@ -11,15 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="appsettings-template.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="appsettings.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="FakeItEasy" Version="5.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.2.0" />
@@ -47,6 +38,15 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DFC.App.RelatedCareers\DFC.App.RelatedCareers.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="appsettings-template.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
