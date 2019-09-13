@@ -3,6 +3,7 @@ using DFC.App.RelatedCareers.DraftSegmentService;
 using DFC.App.RelatedCareers.Repository.CosmosDb;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace DFC.App.RelatedCareers.SegmentService
@@ -16,6 +17,11 @@ namespace DFC.App.RelatedCareers.SegmentService
         {
             this.repository = repository;
             this.draftRelatedCareersSegmentService = draftRelatedCareersSegmentService;
+        }
+
+        public async Task<bool> PingAsync()
+        {
+            return await repository.PingAsync().ConfigureAwait(false);
         }
 
         public async Task<IEnumerable<RelatedCareersSegmentModel>> GetAllAsync()
@@ -38,6 +44,36 @@ namespace DFC.App.RelatedCareers.SegmentService
             return isDraft
                 ? await draftRelatedCareersSegmentService.GetSitefinityData(canonicalName.ToLowerInvariant()).ConfigureAwait(false)
                 : await repository.GetAsync(d => d.CanonicalName == canonicalName.ToLowerInvariant()).ConfigureAwait(false);
+        }
+
+        public async Task<UpsertRelatedCareersSegmentModelResponse> UpsertAsync(RelatedCareersSegmentModel relatedCareersSegmentModel)
+        {
+            if (relatedCareersSegmentModel == null)
+            {
+                throw new ArgumentNullException(nameof(relatedCareersSegmentModel));
+            }
+
+            if (relatedCareersSegmentModel.Data == null)
+            {
+                relatedCareersSegmentModel.Data = new RelatedCareerSegmentDataModel();
+            }
+
+            relatedCareersSegmentModel.Updated = DateTime.UtcNow;
+
+            var responseStatusCode = await repository.UpsertAsync(relatedCareersSegmentModel).ConfigureAwait(false);
+
+            return new UpsertRelatedCareersSegmentModelResponse
+            {
+                RelatedCareersSegmentModel = relatedCareersSegmentModel,
+                ResponseStatusCode = responseStatusCode,
+            };
+        }
+
+        public async Task<bool> DeleteAsync(Guid documentId)
+        {
+            var result = await repository.DeleteAsync(documentId).ConfigureAwait(false);
+
+            return result == HttpStatusCode.NoContent;
         }
     }
 }
