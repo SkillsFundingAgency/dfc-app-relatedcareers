@@ -3,30 +3,39 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Formatting;
+using System.Threading.Tasks;
 
 namespace DFC.App.RelatedCareers.IntegrationTests
 {
-    public static class DataSeeding
+    public class DataSeeding
     {
+        private const string SegmentUrl = "/segment";
+
+        internal const string Job1CanonicalName = "nurse";
+        private const string Job1Title = "Nurse Title";
         private const string Job2CanonicalName = "relatedJob2";
         private const string Job2Title = "Related Job 2 Title";
         private const string Job3CanonicalName = "relatedJob3";
         private const string Job3Title = "Related Job 3 Title";
 
-        private static readonly Guid MainArticleGuid = Guid.Parse("e2156143-e951-4570-a7a0-16f999f68661");
+        internal static readonly Guid MainArticleGuid = Guid.Parse("e2156143-e951-4570-a7a0-16f999f68661");
         private static readonly Guid Job2ArticleGuid = Guid.Parse("e2156143-e951-4570-a7a0-26f999f68661");
         private static readonly Guid Job3ArticleGuid = Guid.Parse("e2156143-e951-4570-a7a0-36f999f68661");
 
-        public static void SeedDefaultArticle(CustomWebApplicationFactory<Startup> factory, string article)
-        {
-            const string url = "/segment";
+        internal static readonly DateTime MainJobDatetime = new DateTime(2019, 1, 15, 15, 30, 11);
+        private static readonly DateTime Job2Datetime = new DateTime(2019, 1, 15, 15, 30, 21);
+        private static readonly DateTime Job3Datetime = new DateTime(2019, 1, 15, 15, 30, 31);
 
+        public async Task SeedDefaultArticle(CustomWebApplicationFactory<Startup> factory)
+        {
             var models = new List<RelatedCareersSegmentModel>()
             {
                 new RelatedCareersSegmentModel
                 {
                     DocumentId = MainArticleGuid,
-                    CanonicalName = article,
+                    CanonicalName = Job1CanonicalName,
+                    Created = MainJobDatetime,
+                    Updated = DateTime.UtcNow,
                     Data = new RelatedCareerSegmentDataModel
                     {
                         Updated = DateTime.UtcNow,
@@ -54,6 +63,8 @@ namespace DFC.App.RelatedCareers.IntegrationTests
                 {
                     DocumentId = Job2ArticleGuid,
                     CanonicalName = Job2CanonicalName,
+                    Created = Job2Datetime,
+                    Updated = DateTime.UtcNow,
                     Data = new RelatedCareerSegmentDataModel
                     {
                         Updated = DateTime.UtcNow,
@@ -62,8 +73,8 @@ namespace DFC.App.RelatedCareers.IntegrationTests
                             new RelatedCareerDataModel
                             {
                                 DocumentId = MainArticleGuid,
-                                CanonicalName = article,
-                                Title = article,
+                                CanonicalName = Job1CanonicalName,
+                                Title = Job1Title,
                                 Updated = DateTime.UtcNow,
                             },
                             new RelatedCareerDataModel
@@ -81,6 +92,8 @@ namespace DFC.App.RelatedCareers.IntegrationTests
                 {
                     DocumentId = Job3ArticleGuid,
                     CanonicalName = Job3CanonicalName,
+                    Created = Job3Datetime,
+                    Updated = DateTime.UtcNow,
                     Data = new RelatedCareerSegmentDataModel
                     {
                         Updated = DateTime.UtcNow,
@@ -89,8 +102,8 @@ namespace DFC.App.RelatedCareers.IntegrationTests
                             new RelatedCareerDataModel
                             {
                                 DocumentId = MainArticleGuid,
-                                CanonicalName = article,
-                                Title = article,
+                                CanonicalName = Job1CanonicalName,
+                                Title = Job1Title,
                                 Updated = DateTime.UtcNow,
                             },
                             new RelatedCareerDataModel
@@ -109,7 +122,10 @@ namespace DFC.App.RelatedCareers.IntegrationTests
 
             client?.DefaultRequestHeaders.Accept.Clear();
 
-            models.ForEach(f => client.PostAsync(url, f, new JsonMediaTypeFormatter()));
+            foreach (var relatedCareersSegmentModel in models)
+            {
+                await client.PostAsync(SegmentUrl, relatedCareersSegmentModel, new JsonMediaTypeFormatter()).ConfigureAwait(false);
+            }
         }
     }
 }

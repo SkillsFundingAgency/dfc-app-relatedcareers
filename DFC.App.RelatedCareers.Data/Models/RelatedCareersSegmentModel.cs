@@ -6,6 +6,8 @@ namespace DFC.App.RelatedCareers.Data.Models
 {
     public class RelatedCareersSegmentModel : IDataModel
     {
+        private int partitionKey;
+
         [JsonProperty(PropertyName = "id")]
         public Guid DocumentId { get; set; }
 
@@ -16,7 +18,11 @@ namespace DFC.App.RelatedCareers.Data.Models
 
         public DateTime Updated { get; set; }
 
-        public int PartitionKey => Created.Second;
+        public int PartitionKey
+        {
+            get => Created.Second;
+            set => partitionKey = value;
+        }
 
         public RelatedCareerSegmentDataModel Data { get; set; }
     }
