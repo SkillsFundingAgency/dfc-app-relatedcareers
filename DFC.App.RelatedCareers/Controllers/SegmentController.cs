@@ -89,7 +89,7 @@ namespace DFC.App.RelatedCareers.Controllers
 
                 logger.LogInformation($"{BodyActionName} has succeeded for: {article}");
 
-                return this.NegotiateContentResult(viewModel);
+                return this.NegotiateContentResult(viewModel, relatedCareersSegmentModel.Data);
             }
 
             logger.LogWarning($"{BodyActionName} has returned no content for: {article}");
