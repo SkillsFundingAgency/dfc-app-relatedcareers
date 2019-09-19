@@ -3,7 +3,7 @@
     <ul class="list list-big">
         @foreach (var relatedCareerDataViewModel in Model.Data.RelatedCareers)
         {
-            <li><a href="/profile/@relatedCareerDataViewModel.CanonicalName">@relatedCareerDataViewModel.Title</a></li>
+            <li><a href="/jobprofile/@relatedCareerDataViewModel.CanonicalName">@relatedCareerDataViewModel.Title</a></li>
         }
     </ul>
 </div>
