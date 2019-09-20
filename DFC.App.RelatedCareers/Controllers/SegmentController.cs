@@ -13,6 +13,9 @@ namespace DFC.App.RelatedCareers.Controllers
 {
     public class SegmentController : Controller
     {
+        public const string SegmentRoutePrefix = "segment";
+        public const string JobProfileRoutePrefix = "jobprofile";
+
         private const string IndexActionName = nameof(Index);
         private const string DocumentActionName = nameof(Document);
         private const string BodyActionName = nameof(Body);
@@ -66,7 +69,7 @@ namespace DFC.App.RelatedCareers.Controllers
             {
                 var viewModel = mapper.Map<DocumentViewModel>(relatedCareersSegmentModel);
 
-                viewModel.RoutePrefix = "segment";
+                viewModel.RoutePrefix = SegmentRoutePrefix;
 
                 logger.LogInformation($"{DocumentActionName} has succeeded for: {article}");
 
@@ -89,7 +92,7 @@ namespace DFC.App.RelatedCareers.Controllers
             {
                 var viewModel = mapper.Map<DocumentViewModel>(relatedCareersSegmentModel);
 
-                viewModel.RoutePrefix = "jobprofile";
+                viewModel.RoutePrefix = JobProfileRoutePrefix;
 
                 logger.LogInformation($"{BodyActionName} has succeeded for: {article}");
 
