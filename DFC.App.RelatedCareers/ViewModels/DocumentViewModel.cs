@@ -15,6 +15,8 @@ namespace DFC.App.RelatedCareers.ViewModels
 
         public DateTime Updated { get; set; }
 
+        public string RoutePrefix { get; set; }
+
         public DocumentDataViewModel Data { get; set; }
     }
 }

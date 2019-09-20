@@ -66,6 +66,8 @@ namespace DFC.App.RelatedCareers.Controllers
             {
                 var viewModel = mapper.Map<DocumentViewModel>(relatedCareersSegmentModel);
 
+                viewModel.RoutePrefix = "segment";
+
                 logger.LogInformation($"{DocumentActionName} has succeeded for: {article}");
 
                 return View(viewModel);
@@ -86,6 +88,8 @@ namespace DFC.App.RelatedCareers.Controllers
             if (relatedCareersSegmentModel != null)
             {
                 var viewModel = mapper.Map<DocumentViewModel>(relatedCareersSegmentModel);
+
+                viewModel.RoutePrefix = "jobprofile";
 
                 logger.LogInformation($"{BodyActionName} has succeeded for: {article}");
 
