@@ -1,9 +1,11 @@
-﻿<div class="job-profile-related">
+﻿@model DocumentViewModel
+        
+<div class="job-profile-related">
     <h2 class="heading-medium">Related careers</h2>
     <ul class="list list-big">
         @foreach (var relatedCareerDataViewModel in Model.Data.RelatedCareers)
         {
-            <li><a href="/jobprofile/@relatedCareerDataViewModel.CanonicalName">@relatedCareerDataViewModel.Title</a></li>
+            <li><a href="/@Model.RoutePrefix/@relatedCareerDataViewModel.CanonicalName">@relatedCareerDataViewModel.Title</a></li>
         }
     </ul>
 </div>

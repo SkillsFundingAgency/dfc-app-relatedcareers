@@ -10,8 +10,11 @@ namespace DFC.App.RelatedCareers.AutoMapperProfiles
         {
             CreateMap<RelatedCareerDataModel, RelatedCareerDataViewModel>();
             CreateMap<RelatedCareerSegmentDataModel, DocumentDataViewModel>();
-            CreateMap<RelatedCareersSegmentModel, DocumentViewModel>();
             CreateMap<RelatedCareersSegmentModel, IndexDocumentViewModel>();
+
+            CreateMap<RelatedCareersSegmentModel, DocumentViewModel>()
+                .ForMember(d => d.RoutePrefix, s => s.Ignore())
+                ;
         }
     }
 }
