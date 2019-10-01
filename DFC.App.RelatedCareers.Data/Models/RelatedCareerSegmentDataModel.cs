@@ -7,6 +7,6 @@ namespace DFC.App.RelatedCareers.Data.Models
     {
         public IEnumerable<RelatedCareerDataModel> RelatedCareers { get; set; }
 
-        public DateTime Updated { get; set; }
+        public DateTime LastReviewed { get; set; }
     }
 }

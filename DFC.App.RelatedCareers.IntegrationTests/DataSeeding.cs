@@ -18,13 +18,13 @@ namespace DFC.App.RelatedCareers.IntegrationTests
         private const string Job3CanonicalName = "relatedJob3";
         private const string Job3Title = "Related Job 3 Title";
 
+        internal static readonly string MainJobSocLevelTwo = "12345Soc";
+        private static readonly string Job2SocLevelTwo = "23456Soc";
+        private static readonly string Job3SocLevelTwo = "34567Soc";
+
         internal static readonly Guid MainArticleGuid = Guid.Parse("e2156143-e951-4570-a7a0-16f999f68661");
         private static readonly Guid Job2ArticleGuid = Guid.Parse("e2156143-e951-4570-a7a0-26f999f68661");
         private static readonly Guid Job3ArticleGuid = Guid.Parse("e2156143-e951-4570-a7a0-36f999f68661");
-
-        internal static readonly DateTime MainJobDatetime = new DateTime(2019, 1, 15, 15, 30, 11);
-        private static readonly DateTime Job2Datetime = new DateTime(2019, 1, 15, 15, 30, 21);
-        private static readonly DateTime Job3Datetime = new DateTime(2019, 1, 15, 15, 30, 31);
 
         public async Task SeedDefaultArticle(CustomWebApplicationFactory<Startup> factory)
         {
@@ -34,11 +34,11 @@ namespace DFC.App.RelatedCareers.IntegrationTests
                 {
                     DocumentId = MainArticleGuid,
                     CanonicalName = Job1CanonicalName,
-                    Created = MainJobDatetime,
-                    Updated = DateTime.UtcNow,
+                    LastReviewed = DateTime.UtcNow,
+                    SocLevelTwo = MainJobSocLevelTwo,
                     Data = new RelatedCareerSegmentDataModel
                     {
-                        Updated = DateTime.UtcNow,
+                        LastReviewed = DateTime.UtcNow,
                         RelatedCareers = new List<RelatedCareerDataModel>
                         {
                             new RelatedCareerDataModel
@@ -46,14 +46,14 @@ namespace DFC.App.RelatedCareers.IntegrationTests
                                 DocumentId = Job2ArticleGuid,
                                 CanonicalName = Job2CanonicalName,
                                 Title = Job2Title,
-                                Updated = DateTime.UtcNow,
+                                SocLevelTwo = Job2SocLevelTwo,
                             },
                             new RelatedCareerDataModel
                             {
                                 DocumentId = Job3ArticleGuid,
                                 CanonicalName = Job3CanonicalName,
                                 Title = Job3Title,
-                                Updated = DateTime.UtcNow,
+                                SocLevelTwo = Job3SocLevelTwo,
                             },
                         },
                     },
@@ -63,11 +63,11 @@ namespace DFC.App.RelatedCareers.IntegrationTests
                 {
                     DocumentId = Job2ArticleGuid,
                     CanonicalName = Job2CanonicalName,
-                    Created = Job2Datetime,
-                    Updated = DateTime.UtcNow,
+                    LastReviewed = DateTime.UtcNow,
+                    SocLevelTwo = Job2SocLevelTwo,
                     Data = new RelatedCareerSegmentDataModel
                     {
-                        Updated = DateTime.UtcNow,
+                        LastReviewed = DateTime.UtcNow,
                         RelatedCareers = new List<RelatedCareerDataModel>
                         {
                             new RelatedCareerDataModel
@@ -75,14 +75,14 @@ namespace DFC.App.RelatedCareers.IntegrationTests
                                 DocumentId = MainArticleGuid,
                                 CanonicalName = Job1CanonicalName,
                                 Title = Job1Title,
-                                Updated = DateTime.UtcNow,
+                                SocLevelTwo = MainJobSocLevelTwo,
                             },
                             new RelatedCareerDataModel
                             {
                                 DocumentId = Job3ArticleGuid,
                                 CanonicalName = Job3CanonicalName,
                                 Title = Job3Title,
-                                Updated = DateTime.UtcNow,
+                                SocLevelTwo = Job3SocLevelTwo,
                             },
                         },
                     },
@@ -92,11 +92,11 @@ namespace DFC.App.RelatedCareers.IntegrationTests
                 {
                     DocumentId = Job3ArticleGuid,
                     CanonicalName = Job3CanonicalName,
-                    Created = Job3Datetime,
-                    Updated = DateTime.UtcNow,
+                    LastReviewed = DateTime.UtcNow,
+                    SocLevelTwo = Job3SocLevelTwo,
                     Data = new RelatedCareerSegmentDataModel
                     {
-                        Updated = DateTime.UtcNow,
+                        LastReviewed = DateTime.UtcNow,
                         RelatedCareers = new List<RelatedCareerDataModel>
                         {
                             new RelatedCareerDataModel
@@ -104,14 +104,14 @@ namespace DFC.App.RelatedCareers.IntegrationTests
                                 DocumentId = MainArticleGuid,
                                 CanonicalName = Job1CanonicalName,
                                 Title = Job1Title,
-                                Updated = DateTime.UtcNow,
+                                SocLevelTwo = MainJobSocLevelTwo,
                             },
                             new RelatedCareerDataModel
                             {
                                 DocumentId = Job2ArticleGuid,
                                 CanonicalName = Job2CanonicalName,
                                 Title = Job2Title,
-                                Updated = DateTime.UtcNow,
+                                SocLevelTwo = Job2SocLevelTwo,
                             },
                         },
                     },

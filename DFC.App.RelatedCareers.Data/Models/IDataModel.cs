@@ -8,6 +8,9 @@ namespace DFC.App.RelatedCareers.Data.Models
         [JsonProperty(PropertyName = "id")]
         Guid DocumentId { get; set; }
 
-        int PartitionKey { get; set; }
+        [JsonProperty(PropertyName = "_etag")]
+        string Etag { get; set; }
+
+        string PartitionKey { get; }
     }
 }
