@@ -99,11 +99,11 @@ namespace DFC.App.RelatedCareers.IntegrationTests.ControllerTests
             {
                 DocumentId = Guid.NewGuid(),
                 CanonicalName = Guid.NewGuid().ToString(),
-                Created = DateTime.UtcNow,
-                Updated = DateTime.UtcNow,
+                LastReviewed = DateTime.UtcNow,
+                SocLevelTwo = "12PostSoc",
                 Data = new RelatedCareerSegmentDataModel
                 {
-                    Updated = DateTime.UtcNow,
+                    LastReviewed = DateTime.UtcNow,
                     RelatedCareers = new List<RelatedCareerDataModel>
                     {
                         new RelatedCareerDataModel
@@ -136,11 +136,11 @@ namespace DFC.App.RelatedCareers.IntegrationTests.ControllerTests
             {
                 DocumentId = DataSeeding.MainArticleGuid,
                 CanonicalName = DataSeeding.Job1CanonicalName,
-                Created = DataSeeding.MainJobDatetime,
-                Updated = DateTime.UtcNow,
+                LastReviewed = DateTime.UtcNow,
+                SocLevelTwo = DataSeeding.MainJobSocLevelTwo,
                 Data = new RelatedCareerSegmentDataModel
                 {
-                    Updated = DateTime.UtcNow,
+                    LastReviewed = DateTime.UtcNow,
                     RelatedCareers = new List<RelatedCareerDataModel>
                     {
                         new RelatedCareerDataModel
@@ -173,11 +173,11 @@ namespace DFC.App.RelatedCareers.IntegrationTests.ControllerTests
             {
                 DocumentId = Guid.NewGuid(),
                 CanonicalName = Guid.NewGuid().ToString(),
-                Created = DateTime.UtcNow,
-                Updated = DateTime.UtcNow,
+                LastReviewed = DateTime.UtcNow,
+                SocLevelTwo = "11PutSoc",
                 Data = new RelatedCareerSegmentDataModel
                 {
-                    Updated = DateTime.UtcNow,
+                    LastReviewed = DateTime.UtcNow,
                     RelatedCareers = new List<RelatedCareerDataModel>
                     {
                         new RelatedCareerDataModel
@@ -215,10 +215,10 @@ namespace DFC.App.RelatedCareers.IntegrationTests.ControllerTests
             {
                 DocumentId = documentId,
                 CanonicalName = documentId.ToString().ToLowerInvariant(),
-
+                SocLevelTwo = "12345",
                 Data = new RelatedCareerSegmentDataModel
                 {
-                    Updated = DateTime.UtcNow,
+                    LastReviewed = DateTime.UtcNow,
                     RelatedCareers = new List<RelatedCareerDataModel>
                     {
                         new RelatedCareerDataModel

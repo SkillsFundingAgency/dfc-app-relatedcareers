@@ -58,8 +58,6 @@ namespace DFC.App.RelatedCareers.SegmentService
                 relatedCareersSegmentModel.Data = new RelatedCareerSegmentDataModel();
             }
 
-            relatedCareersSegmentModel.Updated = DateTime.UtcNow;
-
             var responseStatusCode = await repository.UpsertAsync(relatedCareersSegmentModel).ConfigureAwait(false);
 
             return new UpsertRelatedCareersSegmentModelResponse

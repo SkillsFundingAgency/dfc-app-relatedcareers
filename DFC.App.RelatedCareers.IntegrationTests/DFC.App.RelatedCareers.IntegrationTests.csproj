@@ -36,11 +36,5 @@
     <ProjectReference Include="..\DFC.App.RelatedCareers\DFC.App.RelatedCareers.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="appsettings.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
 
 </Project>
