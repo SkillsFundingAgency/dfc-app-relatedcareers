@@ -2,9 +2,6 @@
     "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "resourcePrefix": {
-            "value": "__resourcePrefix__"
-        },
         "appSharedResourceGroup": {
             "value": "__appSharedResourceGroup__"
         },
@@ -28,6 +25,9 @@
         },
         "cosmosDbResourceGroup": {
             "value": "__appSharedResourceGroup__"
+        },
+        "environment": {
+            "value": "__ReleaseEnvironmentName__"
         },
         "sharedAppServicePlanName": {
             "value": "__sharedAppServicePlanName__"
