@@ -54,12 +54,6 @@
             "type": "string",
             "defaultValue": ""
         },
-        "appSharedServiceBusName": {
-            "type": "string",
-            "metadata": {
-                "description": "The name of the shared service bus to attach to"
-            }
-        },
         "cosmosDbCollectionName": {
             "type": "string"
         }
