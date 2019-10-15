@@ -32,6 +32,9 @@
         "sharedAppServicePlanResourceGroup": {
             "value": "dfc-dev-app-sharedresources-rg"
         },
+        "appSharedServiceBusName": {
+            "value": "dfc-dev-app-sharedresources-ns"
+        },
         "cosmosDbCollectionName": {
             "value": "a-cosmos-collection"
         }
