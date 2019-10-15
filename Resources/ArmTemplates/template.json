@@ -48,6 +48,12 @@
             "type": "string",
             "defaultValue": ""
         },
+        "appSharedServiceBusName": {
+            "type": "string",
+            "metadata": {
+                "description": "The name of the shared service bus to attach to"
+            }
+        },
         "cosmosDbCollectionName": {
             "type": "string"
         }
@@ -63,7 +69,8 @@
         "webAppName": "[concat(variables('resourcePrefix'), '-as')]",
         "webAppInsightsName": "[concat(variables('webAppName'), '-ai')]",
         "functionAppName": "[concat(variables('ResourcePrefix'), '-fa')]",
-        "functionAppInsightsName": "[concat(variables('functionAppName'), '-ai')]"
+        "functionAppInsightsName": "[concat(variables('functionAppName'), '-ai')]",
+        "refreshTopicName": "job-profile-refresh"
     },
     "resources": [
         {
@@ -178,6 +185,14 @@
                             {
                                 "name": "Configuration__CosmosDbConnections__JobProfileSegment__PartitionKey",
                                 "value": "[variables('cosmosDbCollectionPartitionKey')]"
+                            },
+                            {
+                                "name": "ServiceBusOptions__ServiceBusConnectionString",
+                                "value": "[listKeys(resourceId(parameters('appSharedResourceGroup'), 'Microsoft.ServiceBus/namespaces/authorizationRules', parameters('appSharedServiceBusName'), 'ReadWrite'), '2017-04-01').primaryConnectionString]"
+                            },
+                            {
+                                "name": "ServiceBusOptions__topicName",
+                                "value": "[variables('refreshTopicName')]"
                             }
                         ]
                     }
