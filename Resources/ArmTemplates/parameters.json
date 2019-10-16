@@ -41,9 +41,6 @@
         "sharedAppServicePlanResourceGroup": {
             "value": "__appSharedResourceGroup__"
         },
-        "appSharedServiceBusName": {
-            "value": "__appSharedResourceGroup__"
-        },
         "cosmosDbCollectionName": {
             "value": "__cosmosDbCollectionName__"
         }
