@@ -6,8 +6,7 @@ namespace DFC.App.RelatedCareers.Data.Models
 {
     public class RelatedCareerDataModel
     {
-        [JsonProperty(PropertyName = "id")]
-        public Guid DocumentId { get; set; }
+        public Guid Id { get; set; }
 
         [Required]
         public string CanonicalName { get; set; }

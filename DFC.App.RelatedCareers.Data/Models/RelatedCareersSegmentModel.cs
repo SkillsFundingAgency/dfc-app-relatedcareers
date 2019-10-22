@@ -22,6 +22,9 @@ namespace DFC.App.RelatedCareers.Data.Models
         [Required]
         public string SocLevelTwo { get; set; }
 
+        [Required]
+        public long SequenceNumber { get; set; }
+
         public RelatedCareerSegmentDataModel Data { get; set; }
     }
 }

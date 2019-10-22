@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DFC.App.RelatedCareers.Data.Models;
+using DFC.App.RelatedCareers.Data.ServiceBusModels;
 using DFC.App.RelatedCareers.DraftSegmentService;
 using DFC.App.RelatedCareers.Repository.CosmosDb;
 using DFC.App.RelatedCareers.Repository.SitefinityApi;
@@ -20,6 +21,7 @@ namespace DFC.App.RelatedCareers
     {
         public const string CosmosDbConfigAppSettings = "Configuration:CosmosDbConnections:JobProfileSegment";
         public const string SitefinityApiAppSettings = "SitefinityApi";
+        public const string ServiceBusOptionsAppSettings = "ServiceBusOptions";
 
         private readonly IConfiguration configuration;
 
@@ -39,6 +41,10 @@ namespace DFC.App.RelatedCareers
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            var serviceBusOptions = configuration.GetSection(ServiceBusOptionsAppSettings).Get<ServiceBusOptions>();
+            services.AddSingleton(serviceBusOptions ?? new ServiceBusOptions());
+
+
             var cosmosDbConnection = configuration.GetSection(CosmosDbConfigAppSettings).Get<CosmosDbConnection>();
             var documentClient = new DocumentClient(new Uri(cosmosDbConnection.EndpointUrl), cosmosDbConnection.AccessKey);
             var sitefinityApiConnection = configuration.GetSection(SitefinityApiAppSettings).Get<SitefinityAPIConnectionSettings>();
@@ -49,6 +55,7 @@ namespace DFC.App.RelatedCareers
             services.AddSingleton<ICosmosRepository<RelatedCareersSegmentModel>, CosmosRepository<RelatedCareersSegmentModel>>();
             services.AddScoped<IRelatedCareersSegmentService, RelatedCareersSegmentService>();
             services.AddScoped<IDraftRelatedCareersSegmentService, DraftRelatedCareersSegmentService>();
+            services.AddSingleton<IJobProfileSegmentRefreshService<RefreshJobProfileSegmentServiceBusModel>, JobProfileSegmentRefreshService<RefreshJobProfileSegmentServiceBusModel>>();
             services.AddAutoMapper(typeof(Startup).Assembly);
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);

@@ -8,6 +8,7 @@ using System;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using DFC.App.RelatedCareers.Data.Models.PatchModels;
 
 namespace DFC.App.RelatedCareers.Controllers
 {
@@ -19,8 +20,10 @@ namespace DFC.App.RelatedCareers.Controllers
         private const string IndexActionName = nameof(Index);
         private const string DocumentActionName = nameof(Document);
         private const string BodyActionName = nameof(Body);
-        private const string SaveActionName = nameof(Save);
+        private const string PostActionName = nameof(Post);
+        private const string PutActionName = nameof(Put);
         private const string DeleteActionName = nameof(Delete);
+        private const string PatchRelatedCareersActionName = nameof(PatchRelatedCareersData);
 
         private readonly ILogger<SegmentController> logger;
         private readonly IRelatedCareersSegmentService relatedCareersSegmentService;
@@ -104,14 +107,13 @@ namespace DFC.App.RelatedCareers.Controllers
             return NoContent();
         }
 
-        [HttpPut]
         [HttpPost]
         [Route("segment")]
-        public async Task<IActionResult> Save([FromBody]RelatedCareersSegmentModel upsertRelatedCareersSegmentModel)
+        public async Task<IActionResult> Post([FromBody]RelatedCareersSegmentModel relatedCareersSegmentModel)
         {
-            logger.LogInformation($"{SaveActionName} has been called");
+            logger.LogInformation($"{PostActionName} has been called");
 
-            if (upsertRelatedCareersSegmentModel == null)
+            if (relatedCareersSegmentModel == null)
             {
                 return BadRequest();
             }
@@ -121,25 +123,79 @@ namespace DFC.App.RelatedCareers.Controllers
                 return BadRequest(ModelState);
             }
 
-            var response = await relatedCareersSegmentService.UpsertAsync(upsertRelatedCareersSegmentModel)
-                .ConfigureAwait(false);
-
-            if (response.ResponseStatusCode == HttpStatusCode.Created)
+            var existingDocument = await relatedCareersSegmentService.GetByIdAsync(relatedCareersSegmentModel.DocumentId).ConfigureAwait(false);
+            if (existingDocument != null)
             {
-                logger.LogInformation($"{SaveActionName} has created content for: {upsertRelatedCareersSegmentModel.CanonicalName}");
-
-                return new CreatedAtActionResult(
-                    SaveActionName,
-                    "Segment",
-                    new { article = response.RelatedCareersSegmentModel.CanonicalName },
-                    response.RelatedCareersSegmentModel);
+                return new StatusCodeResult((int)HttpStatusCode.AlreadyReported);
             }
-            else
+
+            var response = await relatedCareersSegmentService.UpsertAsync(relatedCareersSegmentModel).ConfigureAwait(false);
+
+            logger.LogInformation($"{PostActionName} has upserted content for: {relatedCareersSegmentModel.CanonicalName}");
+
+            return new StatusCodeResult((int)response);
+        }
+
+        [HttpPut]
+        [Route("segment")]
+        public async Task<IActionResult> Put([FromBody]RelatedCareersSegmentModel relatedCareersSegmentModel)
+        {
+            logger.LogInformation($"{PostActionName} has been called");
+
+            if (relatedCareersSegmentModel == null)
             {
-                logger.LogInformation($"{SaveActionName} has updated content for: {upsertRelatedCareersSegmentModel.CanonicalName}");
-
-                return new OkObjectResult(response.RelatedCareersSegmentModel);
+                return BadRequest();
             }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var existingDocument = await relatedCareersSegmentService.GetByIdAsync(relatedCareersSegmentModel.DocumentId).ConfigureAwait(false);
+            if (existingDocument == null)
+            {
+                return new StatusCodeResult((int)HttpStatusCode.NotFound);
+            }
+
+            if (relatedCareersSegmentModel.SequenceNumber <= existingDocument.SequenceNumber)
+            {
+                return new StatusCodeResult((int)HttpStatusCode.AlreadyReported);
+            }
+
+            relatedCareersSegmentModel.Etag = existingDocument.Etag;
+            relatedCareersSegmentModel.SocLevelTwo = existingDocument.SocLevelTwo;
+
+            var response = await relatedCareersSegmentService.UpsertAsync(relatedCareersSegmentModel).ConfigureAwait(false);
+
+            logger.LogInformation($"{PostActionName} has upserted content for: {relatedCareersSegmentModel.CanonicalName}");
+
+            return new StatusCodeResult((int)response);
+        }
+
+        [HttpPatch]
+        [Route("segment/{documentId}/relatedCareersData")]
+        public async Task<IActionResult> PatchRelatedCareersData([FromBody]PatchRelatedCareersDataModel patchRelatedCareersDataModel, Guid documentId)
+        {
+            logger.LogInformation($"{PatchRelatedCareersActionName} has been called");
+
+            if (patchRelatedCareersDataModel == null)
+            {
+                return BadRequest();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var response = await relatedCareersSegmentService.PatchRelatedCareerAsync(patchRelatedCareersDataModel, documentId).ConfigureAwait(false);
+            if (response != HttpStatusCode.OK && response != HttpStatusCode.Created)
+            {
+                logger.LogError($"{PatchRelatedCareersActionName}: Error while patching Related Career content for Job Profile with Id: {patchRelatedCareersDataModel.JobProfileId} for the {patchRelatedCareersDataModel.Title} career");
+            }
+
+            return new StatusCodeResult((int)response);
         }
 
         [HttpDelete]

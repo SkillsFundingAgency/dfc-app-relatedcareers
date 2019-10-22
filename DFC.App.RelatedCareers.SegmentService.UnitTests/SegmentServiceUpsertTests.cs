@@ -1,4 +1,5 @@
 ﻿using DFC.App.RelatedCareers.Data.Models;
+using DFC.App.RelatedCareers.Data.ServiceBusModels;
 using DFC.App.RelatedCareers.DraftSegmentService;
 using DFC.App.RelatedCareers.Repository.CosmosDb;
 using FakeItEasy;
@@ -18,8 +19,10 @@ namespace DFC.App.RelatedCareers.SegmentService.UnitTests
         public SegmentServiceUpsertTests()
         {
             var draftRelatedCareersSegmentService = A.Fake<DraftRelatedCareersSegmentService>();
+            var mapper = A.Fake<AutoMapper.IMapper>();
+            var jobProfileSegmentRefreshService = A.Fake<IJobProfileSegmentRefreshService<RefreshJobProfileSegmentServiceBusModel>>();
             repository = A.Fake<ICosmosRepository<RelatedCareersSegmentModel>>();
-            relatedCareersSegmentService = new RelatedCareersSegmentService(repository, draftRelatedCareersSegmentService);
+            relatedCareersSegmentService = new RelatedCareersSegmentService(repository, draftRelatedCareersSegmentService, mapper, jobProfileSegmentRefreshService);
         }
 
         [Fact]
@@ -36,7 +39,7 @@ namespace DFC.App.RelatedCareers.SegmentService.UnitTests
 
             // assert
             A.CallTo(() => repository.UpsertAsync(relatedCareersSegmentModel)).MustHaveHappenedOnceExactly();
-            Assert.Equal(expectedResult, result.ResponseStatusCode);
+            Assert.Equal(expectedResult, result);
         }
 
         [Fact]
@@ -53,7 +56,7 @@ namespace DFC.App.RelatedCareers.SegmentService.UnitTests
 
             // assert
             A.CallTo(() => repository.UpsertAsync(relatedCareersSegmentModel)).MustHaveHappenedOnceExactly();
-            Assert.Equal(expectedResult, result.ResponseStatusCode);
+            Assert.Equal(expectedResult, result);
         }
 
         [Fact]

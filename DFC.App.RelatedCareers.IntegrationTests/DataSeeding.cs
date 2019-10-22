@@ -43,14 +43,14 @@ namespace DFC.App.RelatedCareers.IntegrationTests
                         {
                             new RelatedCareerDataModel
                             {
-                                DocumentId = Job2ArticleGuid,
+                                Id = Job2ArticleGuid,
                                 CanonicalName = Job2CanonicalName,
                                 Title = Job2Title,
                                 SocLevelTwo = Job2SocLevelTwo,
                             },
                             new RelatedCareerDataModel
                             {
-                                DocumentId = Job3ArticleGuid,
+                                Id = Job3ArticleGuid,
                                 CanonicalName = Job3CanonicalName,
                                 Title = Job3Title,
                                 SocLevelTwo = Job3SocLevelTwo,
@@ -72,14 +72,14 @@ namespace DFC.App.RelatedCareers.IntegrationTests
                         {
                             new RelatedCareerDataModel
                             {
-                                DocumentId = MainArticleGuid,
+                                Id = MainArticleGuid,
                                 CanonicalName = Job1CanonicalName,
                                 Title = Job1Title,
                                 SocLevelTwo = MainJobSocLevelTwo,
                             },
                             new RelatedCareerDataModel
                             {
-                                DocumentId = Job3ArticleGuid,
+                                Id = Job3ArticleGuid,
                                 CanonicalName = Job3CanonicalName,
                                 Title = Job3Title,
                                 SocLevelTwo = Job3SocLevelTwo,
@@ -101,14 +101,14 @@ namespace DFC.App.RelatedCareers.IntegrationTests
                         {
                             new RelatedCareerDataModel
                             {
-                                DocumentId = MainArticleGuid,
+                                Id = MainArticleGuid,
                                 CanonicalName = Job1CanonicalName,
                                 Title = Job1Title,
                                 SocLevelTwo = MainJobSocLevelTwo,
                             },
                             new RelatedCareerDataModel
                             {
-                                DocumentId = Job2ArticleGuid,
+                                Id = Job2ArticleGuid,
                                 CanonicalName = Job2CanonicalName,
                                 Title = Job2Title,
                                 SocLevelTwo = Job2SocLevelTwo,

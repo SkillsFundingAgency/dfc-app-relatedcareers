@@ -6,8 +6,7 @@ namespace DFC.App.RelatedCareers.ViewModels
 {
     public class RelatedCareerDataViewModel
     {
-        [JsonProperty(PropertyName = "id")]
-        public Guid DocumentId { get; set; }
+        public Guid Id { get; set; }
 
         [Required]
         public string CanonicalName { get; set; }
