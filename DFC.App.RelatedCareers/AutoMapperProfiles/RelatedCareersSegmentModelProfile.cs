@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using DFC.App.RelatedCareers.Data.Models;
-using DFC.App.RelatedCareers.Data.Models.PatchModels;
 using DFC.App.RelatedCareers.Data.ServiceBusModels;
 using DFC.App.RelatedCareers.ViewModels;
 
@@ -20,8 +19,6 @@ namespace DFC.App.RelatedCareers.AutoMapperProfiles
             CreateMap<RelatedCareersSegmentModel, RefreshJobProfileSegmentServiceBusModel>()
                 .ForMember(d => d.JobProfileId, s => s.MapFrom(a => a.DocumentId))
                 .ForMember(d => d.Segment, s => s.MapFrom(a => RelatedCareerSegmentDataModel.SegmentName));
-
-            CreateMap<PatchRelatedCareersDataModel, RelatedCareerDataModel>();
         }
     }
 }

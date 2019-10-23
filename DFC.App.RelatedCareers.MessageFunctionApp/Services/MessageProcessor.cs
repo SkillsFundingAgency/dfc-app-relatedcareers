@@ -1,11 +1,8 @@
 ﻿using AutoMapper;
 using DFC.App.RelatedCareers.Data.Enums;
-using Newtonsoft.Json;
 using System;
 using System.Net;
 using System.Threading.Tasks;
-using DFC.App.RelatedCareers.Data.Models.PatchModels;
-using DFC.App.RelatedCareers.Data.ServiceBusModels.PatchModels;
 
 namespace DFC.App.RelatedCareers.MessageFunctionApp.Services
 {
@@ -26,16 +23,6 @@ namespace DFC.App.RelatedCareers.MessageFunctionApp.Services
         {
             switch (messageContentType)
             {
-                case MessageContentType.RelatedCareers:
-                    {
-                        var serviceBusMessage = JsonConvert.DeserializeObject<PatchRelatedCareerServiceBusModel>(message);
-                        var patchRelatedCareersDataModel = mapper.Map<PatchRelatedCareersDataModel>(serviceBusMessage);
-                        patchRelatedCareersDataModel.MessageAction = messageAction;
-                        patchRelatedCareersDataModel.SequenceNumber = sequenceNumber;
-
-                        return await httpClientService.PatchAsync(patchRelatedCareersDataModel, "relatedCareersData").ConfigureAwait(false);
-                    }
-
                 case MessageContentType.JobProfile:
                     return await ProcessJobProfileMessageAsync(message, messageAction, sequenceNumber).ConfigureAwait(false);
 

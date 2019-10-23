@@ -1,13 +1,10 @@
 ﻿using AutoMapper;
-using DFC.App.RelatedCareers.Data.Enums;
 using DFC.App.RelatedCareers.Data.Models;
-using DFC.App.RelatedCareers.Data.Models.PatchModels;
 using DFC.App.RelatedCareers.Data.ServiceBusModels;
 using DFC.App.RelatedCareers.DraftSegmentService;
 using DFC.App.RelatedCareers.Repository.CosmosDb;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -68,45 +65,6 @@ namespace DFC.App.RelatedCareers.SegmentService
             }
 
             return await UpsertAndRefreshSegmentModel(relatedCareersSegmentModel).ConfigureAwait(false);
-        }
-
-        public async Task<HttpStatusCode> PatchRelatedCareerAsync(PatchRelatedCareersDataModel patchModel, Guid documentId)
-        {
-            if (patchModel is null)
-            {
-                throw new ArgumentNullException(nameof(patchModel));
-            }
-
-            var existingSegmentModel = await GetByIdAsync(documentId).ConfigureAwait(false);
-            if (existingSegmentModel is null)
-            {
-                return HttpStatusCode.NotFound;
-            }
-
-            if (patchModel.SequenceNumber <= existingSegmentModel.SequenceNumber)
-            {
-                return HttpStatusCode.AlreadyReported;
-            }
-
-            var existingRelatedCareer = existingSegmentModel.Data.RelatedCareers.SingleOrDefault(r => r.Id == patchModel.Id);
-            if (existingRelatedCareer is null)
-            {
-                return patchModel.MessageAction == MessageAction.Deleted ? HttpStatusCode.AlreadyReported : HttpStatusCode.NotFound;
-            }
-
-            var filteredRelatedCareers = existingSegmentModel.Data.RelatedCareers.Where(ai => ai.Id != patchModel.Id).ToList();
-
-            if (patchModel.MessageAction == MessageAction.Published || patchModel.MessageAction == MessageAction.Draft)
-            {
-                var updatedCareer = mapper.Map<RelatedCareerDataModel>(patchModel);
-                var existingIndex = existingSegmentModel.Data.RelatedCareers.ToList().FindIndex(ai => ai.Id == patchModel.Id);
-                filteredRelatedCareers.Insert(existingIndex, updatedCareer);
-            }
-
-            existingSegmentModel.Data.RelatedCareers = filteredRelatedCareers;
-            existingSegmentModel.SequenceNumber = patchModel.SequenceNumber;
-
-            return await UpsertAndRefreshSegmentModel(existingSegmentModel).ConfigureAwait(false);
         }
 
         public async Task<bool> DeleteAsync(Guid documentId)

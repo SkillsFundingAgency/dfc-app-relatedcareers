@@ -12,7 +12,7 @@ namespace DFC.App.RelatedCareers.Data.ServiceBusModels
         public DateTime LastModified { get; set; }
 
         [Required]
-        public string SocCodeId { get; set; }
+        public string SocLevelTwo { get; set; }
 
         public IEnumerable<RelatedCareersServiceBusModel> RelatedCareersData { get; set; }
     }

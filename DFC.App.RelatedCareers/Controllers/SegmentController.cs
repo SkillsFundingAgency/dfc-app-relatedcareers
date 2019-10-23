@@ -8,14 +8,13 @@ using System;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using DFC.App.RelatedCareers.Data.Models.PatchModels;
 
 namespace DFC.App.RelatedCareers.Controllers
 {
     public class SegmentController : Controller
     {
         public const string SegmentRoutePrefix = "segment";
-        public const string JobProfileRoutePrefix = "jobprofile";
+        public const string JobProfileRoutePrefix = "job-profiles";
 
         private const string IndexActionName = nameof(Index);
         private const string DocumentActionName = nameof(Document);
@@ -23,7 +22,6 @@ namespace DFC.App.RelatedCareers.Controllers
         private const string PostActionName = nameof(Post);
         private const string PutActionName = nameof(Put);
         private const string DeleteActionName = nameof(Delete);
-        private const string PatchRelatedCareersActionName = nameof(PatchRelatedCareersData);
 
         private readonly ILogger<SegmentController> logger;
         private readonly IRelatedCareersSegmentService relatedCareersSegmentService;
@@ -85,24 +83,24 @@ namespace DFC.App.RelatedCareers.Controllers
         }
 
         [HttpGet]
-        [Route("segment/{article}/contents")]
-        public async Task<IActionResult> Body(string article)
+        [Route("segment/{documentId}/contents")]
+        public async Task<IActionResult> Body(Guid documentId)
         {
-            logger.LogInformation($"{BodyActionName} has been called with: {article}");
+            logger.LogInformation($"{BodyActionName} has been called with: {documentId}");
 
-            var relatedCareersSegmentModel = await relatedCareersSegmentService.GetByNameAsync(article, Request.IsDraftRequest()).ConfigureAwait(false);
+            var relatedCareersSegmentModel = await relatedCareersSegmentService.GetByIdAsync(documentId).ConfigureAwait(false);
             if (relatedCareersSegmentModel != null)
             {
                 var viewModel = mapper.Map<DocumentViewModel>(relatedCareersSegmentModel);
 
                 viewModel.RoutePrefix = JobProfileRoutePrefix;
 
-                logger.LogInformation($"{BodyActionName} has succeeded for: {article}");
+                logger.LogInformation($"{BodyActionName} has succeeded for: {documentId}");
 
                 return this.NegotiateContentResult(viewModel, relatedCareersSegmentModel.Data);
             }
 
-            logger.LogWarning($"{BodyActionName} has returned no content for: {article}");
+            logger.LogWarning($"{BodyActionName} has returned no content for: {documentId}");
 
             return NoContent();
         }
@@ -140,7 +138,7 @@ namespace DFC.App.RelatedCareers.Controllers
         [Route("segment")]
         public async Task<IActionResult> Put([FromBody]RelatedCareersSegmentModel relatedCareersSegmentModel)
         {
-            logger.LogInformation($"{PostActionName} has been called");
+            logger.LogInformation($"{PutActionName} has been called");
 
             if (relatedCareersSegmentModel == null)
             {
@@ -168,32 +166,7 @@ namespace DFC.App.RelatedCareers.Controllers
 
             var response = await relatedCareersSegmentService.UpsertAsync(relatedCareersSegmentModel).ConfigureAwait(false);
 
-            logger.LogInformation($"{PostActionName} has upserted content for: {relatedCareersSegmentModel.CanonicalName}");
-
-            return new StatusCodeResult((int)response);
-        }
-
-        [HttpPatch]
-        [Route("segment/{documentId}/relatedCareersData")]
-        public async Task<IActionResult> PatchRelatedCareersData([FromBody]PatchRelatedCareersDataModel patchRelatedCareersDataModel, Guid documentId)
-        {
-            logger.LogInformation($"{PatchRelatedCareersActionName} has been called");
-
-            if (patchRelatedCareersDataModel == null)
-            {
-                return BadRequest();
-            }
-
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var response = await relatedCareersSegmentService.PatchRelatedCareerAsync(patchRelatedCareersDataModel, documentId).ConfigureAwait(false);
-            if (response != HttpStatusCode.OK && response != HttpStatusCode.Created)
-            {
-                logger.LogError($"{PatchRelatedCareersActionName}: Error while patching Related Career content for Job Profile with Id: {patchRelatedCareersDataModel.JobProfileId} for the {patchRelatedCareersDataModel.Title} career");
-            }
+            logger.LogInformation($"{PutActionName} has upserted content for: {relatedCareersSegmentModel.CanonicalName}");
 
             return new StatusCodeResult((int)response);
         }

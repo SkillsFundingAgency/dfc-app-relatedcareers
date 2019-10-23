@@ -62,7 +62,7 @@ namespace DFC.App.RelatedCareers.MessageFunctionAppTests
                 CanonicalName = TestJobName,
                 LastModified = LastModified,
 
-                SocCodeId = SocCodeId,
+                SocLevelTwo = SocCodeId,
                 RelatedCareersData = new List<RelatedCareersServiceBusModel>
                 {
                     new RelatedCareersServiceBusModel

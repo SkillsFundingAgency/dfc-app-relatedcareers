@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
 using DFC.App.RelatedCareers.Data.Models;
-using DFC.App.RelatedCareers.Data.Models.PatchModels;
 using DFC.App.RelatedCareers.Data.ServiceBusModels;
-using DFC.App.RelatedCareers.Data.ServiceBusModels.PatchModels;
 
 namespace DFC.App.RelatedCareers.MessageFunctionApp.AutomapperProfile
 {
@@ -13,7 +11,6 @@ namespace DFC.App.RelatedCareers.MessageFunctionApp.AutomapperProfile
             CreateMap<JobProfileMessage, RelatedCareersSegmentModel>()
                 .ForMember(d => d.Data, s => s.MapFrom(a => a))
                 .ForMember(d => d.DocumentId, s => s.MapFrom(a => a.JobProfileId))
-                .ForMember(d => d.SocLevelTwo, s => s.MapFrom(a => a.SocCodeId))
                 .ForMember(d => d.LastReviewed, s => s.MapFrom(a => a.LastModified))
                 .ForMember(d => d.Etag, s => s.Ignore());
 
@@ -24,10 +21,6 @@ namespace DFC.App.RelatedCareers.MessageFunctionApp.AutomapperProfile
             CreateMap<RelatedCareersServiceBusModel, RelatedCareerDataModel>()
                 .ForMember(d => d.SocLevelTwo, s => s.Ignore())
                 .ForMember(d => d.CanonicalName, s => s.MapFrom(a => a.ProfileLink));
-
-            CreateMap<PatchRelatedCareerServiceBusModel, PatchRelatedCareersDataModel>()
-                .ForMember(d => d.CanonicalName, s => s.MapFrom(a => a.ProfileLink))
-                .ForMember(d => d.SocLevelTwo, s => s.Ignore());
         }
     }
 }

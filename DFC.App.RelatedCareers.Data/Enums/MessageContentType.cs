@@ -3,6 +3,5 @@
     public enum MessageContentType
     {
         JobProfile,
-        RelatedCareers,
     }
 }
