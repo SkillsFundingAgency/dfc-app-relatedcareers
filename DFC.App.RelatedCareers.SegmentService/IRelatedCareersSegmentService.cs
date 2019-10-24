@@ -1,6 +1,7 @@
 ﻿using DFC.App.RelatedCareers.Data.Models;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace DFC.App.RelatedCareers.SegmentService
@@ -15,7 +16,7 @@ namespace DFC.App.RelatedCareers.SegmentService
 
         Task<RelatedCareersSegmentModel> GetByNameAsync(string canonicalName, bool isDraft = false);
 
-        Task<UpsertRelatedCareersSegmentModelResponse> UpsertAsync(RelatedCareersSegmentModel relatedCareersSegmentModel);
+        Task<HttpStatusCode> UpsertAsync(RelatedCareersSegmentModel relatedCareersSegmentModel);
 
         Task<bool> DeleteAsync(Guid documentId);
     }

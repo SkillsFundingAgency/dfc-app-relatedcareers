@@ -1,4 +1,5 @@
 ﻿using DFC.App.RelatedCareers.Data.Models;
+using DFC.App.RelatedCareers.Data.ServiceBusModels;
 using DFC.App.RelatedCareers.DraftSegmentService;
 using DFC.App.RelatedCareers.Repository.CosmosDb;
 using FakeItEasy;
@@ -15,9 +16,11 @@ namespace DFC.App.RelatedCareers.SegmentService.UnitTests
             // arrange
             const bool expectedResult = true;
             var repository = A.Fake<ICosmosRepository<RelatedCareersSegmentModel>>();
+            var jobProfileSegmentRefreshService = A.Fake<IJobProfileSegmentRefreshService<RefreshJobProfileSegmentServiceBusModel>>();
+            var mapper = A.Fake<AutoMapper.IMapper>();
             A.CallTo(() => repository.PingAsync()).Returns(expectedResult);
 
-            var relatedCareersSegmentService = new RelatedCareersSegmentService(repository, A.Fake<IDraftRelatedCareersSegmentService>());
+            var relatedCareersSegmentService = new RelatedCareersSegmentService(repository, A.Fake<IDraftRelatedCareersSegmentService>(), mapper, jobProfileSegmentRefreshService);
 
             // act
             var result = relatedCareersSegmentService.PingAsync().Result;
@@ -33,9 +36,11 @@ namespace DFC.App.RelatedCareers.SegmentService.UnitTests
             // arrange
             const bool expectedResult = false;
             var repository = A.Fake<ICosmosRepository<RelatedCareersSegmentModel>>();
+            var jobProfileSegmentRefreshService = A.Fake<IJobProfileSegmentRefreshService<RefreshJobProfileSegmentServiceBusModel>>();
+            var mapper = A.Fake<AutoMapper.IMapper>();
             A.CallTo(() => repository.PingAsync()).Returns(expectedResult);
 
-            var relatedCareersSegmentService = new RelatedCareersSegmentService(repository, A.Fake<IDraftRelatedCareersSegmentService>());
+            var relatedCareersSegmentService = new RelatedCareersSegmentService(repository, A.Fake<IDraftRelatedCareersSegmentService>(), mapper, jobProfileSegmentRefreshService);
 
             // act
             var result = relatedCareersSegmentService.PingAsync().Result;

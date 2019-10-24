@@ -109,7 +109,7 @@ namespace DFC.App.RelatedCareers.IntegrationTests.ControllerTests
                         new RelatedCareerDataModel
                         {
                             CanonicalName = "relatedJobName",
-                            DocumentId = Guid.NewGuid(),
+                            Id = Guid.NewGuid(),
                             Title = "relatedJobTitle",
                         },
                     },
@@ -129,7 +129,7 @@ namespace DFC.App.RelatedCareers.IntegrationTests.ControllerTests
         }
 
         [Fact]
-        public async Task PostSegmentEndpointsForDefaultArticleRefreshAllReturnOk()
+        public async Task PostWhenUpdateExistingArticleReturnsAlreadyReported()
         {
             // Arrange
             var relatedCareersSegmentModel = new RelatedCareersSegmentModel()
@@ -146,7 +146,7 @@ namespace DFC.App.RelatedCareers.IntegrationTests.ControllerTests
                         new RelatedCareerDataModel
                         {
                             CanonicalName = "relatedJobName",
-                            DocumentId = Guid.NewGuid(),
+                            Id = Guid.NewGuid(),
                             Title = "relatedJobTitle",
                         },
                     },
@@ -162,14 +162,14 @@ namespace DFC.App.RelatedCareers.IntegrationTests.ControllerTests
 
             // Assert
             response.EnsureSuccessStatusCode();
-            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+            Assert.Equal(HttpStatusCode.AlreadyReported, response.StatusCode);
         }
 
         [Fact]
         public async Task PutSegmentEndpointsReturnOk()
         {
             // Arrange
-            var relatedCareersSegmentModel = new RelatedCareersSegmentModel()
+            var relatedCareersSegmentModel = new RelatedCareersSegmentModel
             {
                 DocumentId = Guid.NewGuid(),
                 CanonicalName = Guid.NewGuid().ToString(),
@@ -183,7 +183,7 @@ namespace DFC.App.RelatedCareers.IntegrationTests.ControllerTests
                         new RelatedCareerDataModel
                         {
                             CanonicalName = "relatedJobName",
-                            DocumentId = Guid.NewGuid(),
+                            Id = Guid.NewGuid(),
                             Title = "relatedJobTitle",
                         },
                     },
@@ -194,6 +194,7 @@ namespace DFC.App.RelatedCareers.IntegrationTests.ControllerTests
             client.DefaultRequestHeaders.Accept.Clear();
 
             await client.PostAsync(SegmentUrl, relatedCareersSegmentModel, new JsonMediaTypeFormatter()).ConfigureAwait(false);
+            relatedCareersSegmentModel.SequenceNumber = 123;
 
             // Act
             var response = await client.PutAsync(SegmentUrl, relatedCareersSegmentModel, new JsonMediaTypeFormatter()).ConfigureAwait(false);
@@ -224,7 +225,7 @@ namespace DFC.App.RelatedCareers.IntegrationTests.ControllerTests
                         new RelatedCareerDataModel
                         {
                             CanonicalName = "relatedJobName",
-                            DocumentId = Guid.NewGuid(),
+                            Id = Guid.NewGuid(),
                             Title = "relatedJobTitle",
                         },
                     },

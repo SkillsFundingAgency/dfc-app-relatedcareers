@@ -1,4 +1,6 @@
-﻿using DFC.App.RelatedCareers.Data.Models;
+﻿using AutoMapper;
+using DFC.App.RelatedCareers.Data.Models;
+using DFC.App.RelatedCareers.Data.ServiceBusModels;
 using DFC.App.RelatedCareers.DraftSegmentService;
 using DFC.App.RelatedCareers.Repository.CosmosDb;
 using System;
@@ -12,11 +14,15 @@ namespace DFC.App.RelatedCareers.SegmentService
     {
         private readonly ICosmosRepository<RelatedCareersSegmentModel> repository;
         private readonly IDraftRelatedCareersSegmentService draftRelatedCareersSegmentService;
+        private readonly IMapper mapper;
+        private readonly IJobProfileSegmentRefreshService<RefreshJobProfileSegmentServiceBusModel> jobProfileSegmentRefreshService;
 
-        public RelatedCareersSegmentService(ICosmosRepository<RelatedCareersSegmentModel> repository, IDraftRelatedCareersSegmentService draftRelatedCareersSegmentService)
+        public RelatedCareersSegmentService(ICosmosRepository<RelatedCareersSegmentModel> repository, IDraftRelatedCareersSegmentService draftRelatedCareersSegmentService, IMapper mapper, IJobProfileSegmentRefreshService<RefreshJobProfileSegmentServiceBusModel> jobProfileSegmentRefreshService)
         {
             this.repository = repository;
             this.draftRelatedCareersSegmentService = draftRelatedCareersSegmentService;
+            this.mapper = mapper;
+            this.jobProfileSegmentRefreshService = jobProfileSegmentRefreshService;
         }
 
         public async Task<bool> PingAsync()
@@ -46,7 +52,7 @@ namespace DFC.App.RelatedCareers.SegmentService
                 : await repository.GetAsync(d => d.CanonicalName == canonicalName.ToLowerInvariant()).ConfigureAwait(false);
         }
 
-        public async Task<UpsertRelatedCareersSegmentModelResponse> UpsertAsync(RelatedCareersSegmentModel relatedCareersSegmentModel)
+        public async Task<HttpStatusCode> UpsertAsync(RelatedCareersSegmentModel relatedCareersSegmentModel)
         {
             if (relatedCareersSegmentModel == null)
             {
@@ -58,13 +64,7 @@ namespace DFC.App.RelatedCareers.SegmentService
                 relatedCareersSegmentModel.Data = new RelatedCareerSegmentDataModel();
             }
 
-            var responseStatusCode = await repository.UpsertAsync(relatedCareersSegmentModel).ConfigureAwait(false);
-
-            return new UpsertRelatedCareersSegmentModelResponse
-            {
-                RelatedCareersSegmentModel = relatedCareersSegmentModel,
-                ResponseStatusCode = responseStatusCode,
-            };
+            return await UpsertAndRefreshSegmentModel(relatedCareersSegmentModel).ConfigureAwait(false);
         }
 
         public async Task<bool> DeleteAsync(Guid documentId)
@@ -72,6 +72,20 @@ namespace DFC.App.RelatedCareers.SegmentService
             var result = await repository.DeleteAsync(documentId).ConfigureAwait(false);
 
             return result == HttpStatusCode.NoContent;
+        }
+
+        private async Task<HttpStatusCode> UpsertAndRefreshSegmentModel(RelatedCareersSegmentModel existingSegmentModel)
+        {
+            var result = await repository.UpsertAsync(existingSegmentModel).ConfigureAwait(false);
+
+            if (result == HttpStatusCode.OK || result == HttpStatusCode.Created)
+            {
+                var refreshJobProfileSegmentServiceBusModel = mapper.Map<RefreshJobProfileSegmentServiceBusModel>(existingSegmentModel);
+
+                await jobProfileSegmentRefreshService.SendMessageAsync(refreshJobProfileSegmentServiceBusModel).ConfigureAwait(false);
+            }
+
+            return result;
         }
     }
 }
