@@ -286,28 +286,12 @@
                                 "value": "[variables('cmsSubscriptionName')]"
                             },
                             {
-                                "name": "JobProfileRelatedCareersSegmentClientOptions__Timeout",
+                                "name": "RelatedCareersSegmentClientOptions__Timeout",
                                 "value": "00:00:10"
                             },
                             {
-                                "name": "JobProfileRelatedCareersSegmentClientOptions__BaseAddress",
+                                "name": "RelatedCareersSegmentClientOptions__BaseAddress",
                                 "value": "[variables('urlRelatedCareers')]"
-                            },
-                            {
-                                "name": "JobProfileRelatedCareersSegmentClientOptions__GetEndpoint",
-                                "value": "segment/{0}/contents"
-                            },
-                            {
-                                "name": "JobProfileRelatedCareersSegmentClientOptions__PatchEndpoint",
-                                "value": "segment/{0}/content-type/markup"
-                            },
-                            {
-                                "name": "JobProfileRelatedCareersSegmentClientOptions__PostEndpoint",
-                                "value": "segment"
-                            },
-                            {
-                                "name": "JobProfileRelatedCareersSegmentClientOptions__DeleteEndpoint",
-                                "value": "segment/{0}"
                             }
                         ]
                     }
