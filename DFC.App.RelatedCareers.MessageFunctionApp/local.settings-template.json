@@ -7,7 +7,7 @@
     "cms-messages-topic": "cms-messages-kh",
     "cms-messages-subscription": "job-profile-relatedcareers"
   },
-  "JobProfileRelatedCareersSegmentClientOptions": {
+  "RelatedCareersSegmentClientOptions": {
     "Timeout": "00:00:30",
     "BaseAddress": "https://localhost:44340/"
   }
