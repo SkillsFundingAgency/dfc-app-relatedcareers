@@ -296,6 +296,10 @@
                             {
                                 "name": "RelatedCareersSegmentClientOptions__BaseAddress",
                                 "value": "[variables('urlRelatedCareers')]"
+                            },
+                            {
+                                "name": "Logging__ApplicationInsights__LogLevel__Default",
+                                "value": "Information"
                             }
                         ]
                     }
