@@ -36,8 +36,8 @@ namespace DFC.App.RelatedCareers.IntegrationTests.ControllerTests
 
         public static IEnumerable<object[]> SegmentBodyRouteData => new List<object[]>
         {
-            new object[] { $"{SegmentUrl}/{DataSeeding.Job1CanonicalName}/contents", MediaTypeNames.Application.Json },
-            new object[] { $"{SegmentUrl}/{DataSeeding.Job1CanonicalName}/contents", MediaTypeNames.Text.Html },
+            new object[] { $"{SegmentUrl}/{DataSeeding.MainArticleGuid}/contents", MediaTypeNames.Application.Json },
+            new object[] { $"{SegmentUrl}/{DataSeeding.MainArticleGuid}/contents", MediaTypeNames.Text.Html },
         };
 
         [Theory]

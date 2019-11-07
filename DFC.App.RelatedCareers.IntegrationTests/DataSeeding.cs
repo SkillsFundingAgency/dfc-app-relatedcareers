@@ -46,14 +46,12 @@ namespace DFC.App.RelatedCareers.IntegrationTests
                                 Id = Job2ArticleGuid,
                                 CanonicalName = Job2CanonicalName,
                                 Title = Job2Title,
-                                SocLevelTwo = Job2SocLevelTwo,
                             },
                             new RelatedCareerDataModel
                             {
                                 Id = Job3ArticleGuid,
                                 CanonicalName = Job3CanonicalName,
                                 Title = Job3Title,
-                                SocLevelTwo = Job3SocLevelTwo,
                             },
                         },
                     },
@@ -75,14 +73,12 @@ namespace DFC.App.RelatedCareers.IntegrationTests
                                 Id = MainArticleGuid,
                                 CanonicalName = Job1CanonicalName,
                                 Title = Job1Title,
-                                SocLevelTwo = MainJobSocLevelTwo,
                             },
                             new RelatedCareerDataModel
                             {
                                 Id = Job3ArticleGuid,
                                 CanonicalName = Job3CanonicalName,
                                 Title = Job3Title,
-                                SocLevelTwo = Job3SocLevelTwo,
                             },
                         },
                     },
@@ -104,14 +100,12 @@ namespace DFC.App.RelatedCareers.IntegrationTests
                                 Id = MainArticleGuid,
                                 CanonicalName = Job1CanonicalName,
                                 Title = Job1Title,
-                                SocLevelTwo = MainJobSocLevelTwo,
                             },
                             new RelatedCareerDataModel
                             {
                                 Id = Job2ArticleGuid,
                                 CanonicalName = Job2CanonicalName,
                                 Title = Job2Title,
-                                SocLevelTwo = Job2SocLevelTwo,
                             },
                         },
                     },
