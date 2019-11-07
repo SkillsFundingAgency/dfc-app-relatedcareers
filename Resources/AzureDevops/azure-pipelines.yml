@@ -38,4 +38,4 @@ jobs:
       BuildConfiguration: $(BuildConfiguration)
       DotNetCoreVersion: 2.2.402
       PublishWebApp: true
-      TestSuffix: UnitTests#
+      TestSuffix: UnitTests
