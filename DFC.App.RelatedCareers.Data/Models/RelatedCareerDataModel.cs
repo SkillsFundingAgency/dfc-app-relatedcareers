@@ -13,7 +13,5 @@ namespace DFC.App.RelatedCareers.Data.Models
 
         [Required]
         public string Title { get; set; }
-
-        public string SocLevelTwo { get; set; }
     }
 }

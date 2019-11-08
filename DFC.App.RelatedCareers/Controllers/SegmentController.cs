@@ -1,10 +1,12 @@
-﻿using DFC.App.RelatedCareers.Data.Models;
+﻿using DFC.App.RelatedCareers.ApiModels;
+using DFC.App.RelatedCareers.Data.Models;
 using DFC.App.RelatedCareers.Extensions;
 using DFC.App.RelatedCareers.SegmentService;
 using DFC.App.RelatedCareers.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -97,7 +99,7 @@ namespace DFC.App.RelatedCareers.Controllers
 
                 logger.LogInformation($"{BodyActionName} has succeeded for: {documentId}");
 
-                return this.NegotiateContentResult(viewModel, relatedCareersSegmentModel.Data);
+                return this.NegotiateContentResult(viewModel, mapper.Map<List<RelatedCareerApiModel>>(relatedCareersSegmentModel.Data?.RelatedCareers));
             }
 
             logger.LogWarning($"{BodyActionName} has returned no content for: {documentId}");
