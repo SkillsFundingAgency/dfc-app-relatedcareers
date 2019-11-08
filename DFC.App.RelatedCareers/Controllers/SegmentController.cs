@@ -99,7 +99,9 @@ namespace DFC.App.RelatedCareers.Controllers
 
                 logger.LogInformation($"{BodyActionName} has succeeded for: {documentId}");
 
-                return this.NegotiateContentResult(viewModel, mapper.Map<List<RelatedCareerApiModel>>(relatedCareersSegmentModel.Data?.RelatedCareers));
+                var apiModel = mapper.Map<List<RelatedCareerApiModel>>(relatedCareersSegmentModel.Data?.RelatedCareers);
+
+                return this.NegotiateContentResult(viewModel, apiModel);
             }
 
             logger.LogWarning($"{BodyActionName} has returned no content for: {documentId}");
