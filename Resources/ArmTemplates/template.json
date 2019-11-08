@@ -200,6 +200,10 @@
                             {
                                 "name": "ServiceBusOptions__topicName",
                                 "value": "[variables('refreshTopicName')]"
+                            },
+                            {
+                                "name": "Logging__ApplicationInsights__LogLevel__Default",
+                                "value": "Information"
                             }
                         ]
                     }
@@ -292,6 +296,10 @@
                             {
                                 "name": "RelatedCareersSegmentClientOptions__BaseAddress",
                                 "value": "[variables('urlRelatedCareers')]"
+                            },
+                            {
+                                "name": "Logging__ApplicationInsights__LogLevel__Default",
+                                "value": "Information"
                             }
                         ]
                     }
