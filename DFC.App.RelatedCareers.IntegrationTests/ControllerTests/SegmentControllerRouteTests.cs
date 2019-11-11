@@ -108,7 +108,7 @@ namespace DFC.App.RelatedCareers.IntegrationTests.ControllerTests
                     {
                         new RelatedCareerDataModel
                         {
-                            CanonicalName = "relatedJobName",
+                            ProfileLink = "relatedJobName",
                             Id = Guid.NewGuid(),
                             Title = "relatedJobTitle",
                         },
@@ -145,7 +145,7 @@ namespace DFC.App.RelatedCareers.IntegrationTests.ControllerTests
                     {
                         new RelatedCareerDataModel
                         {
-                            CanonicalName = "relatedJobName",
+                            ProfileLink = "relatedJobName",
                             Id = Guid.NewGuid(),
                             Title = "relatedJobTitle",
                         },
@@ -182,7 +182,7 @@ namespace DFC.App.RelatedCareers.IntegrationTests.ControllerTests
                     {
                         new RelatedCareerDataModel
                         {
-                            CanonicalName = "relatedJobName",
+                            ProfileLink = "relatedJobName",
                             Id = Guid.NewGuid(),
                             Title = "relatedJobTitle",
                         },
@@ -224,7 +224,7 @@ namespace DFC.App.RelatedCareers.IntegrationTests.ControllerTests
                     {
                         new RelatedCareerDataModel
                         {
-                            CanonicalName = "relatedJobName",
+                            ProfileLink = "relatedJobName",
                             Id = Guid.NewGuid(),
                             Title = "relatedJobTitle",
                         },

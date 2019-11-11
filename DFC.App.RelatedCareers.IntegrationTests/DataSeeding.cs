@@ -44,13 +44,13 @@ namespace DFC.App.RelatedCareers.IntegrationTests
                             new RelatedCareerDataModel
                             {
                                 Id = Job2ArticleGuid,
-                                CanonicalName = Job2CanonicalName,
+                                ProfileLink = Job2CanonicalName,
                                 Title = Job2Title,
                             },
                             new RelatedCareerDataModel
                             {
                                 Id = Job3ArticleGuid,
-                                CanonicalName = Job3CanonicalName,
+                                ProfileLink = Job3CanonicalName,
                                 Title = Job3Title,
                             },
                         },
@@ -71,13 +71,13 @@ namespace DFC.App.RelatedCareers.IntegrationTests
                             new RelatedCareerDataModel
                             {
                                 Id = MainArticleGuid,
-                                CanonicalName = Job1CanonicalName,
+                                ProfileLink = Job1CanonicalName,
                                 Title = Job1Title,
                             },
                             new RelatedCareerDataModel
                             {
                                 Id = Job3ArticleGuid,
-                                CanonicalName = Job3CanonicalName,
+                                ProfileLink = Job3CanonicalName,
                                 Title = Job3Title,
                             },
                         },
@@ -98,13 +98,13 @@ namespace DFC.App.RelatedCareers.IntegrationTests
                             new RelatedCareerDataModel
                             {
                                 Id = MainArticleGuid,
-                                CanonicalName = Job1CanonicalName,
+                                ProfileLink = Job1CanonicalName,
                                 Title = Job1Title,
                             },
                             new RelatedCareerDataModel
                             {
                                 Id = Job2ArticleGuid,
-                                CanonicalName = Job2CanonicalName,
+                                ProfileLink = Job2CanonicalName,
                                 Title = Job2Title,
                             },
                         },

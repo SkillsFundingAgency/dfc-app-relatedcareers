@@ -9,7 +9,7 @@ namespace DFC.App.RelatedCareers.Data.Models
         public Guid Id { get; set; }
 
         [Required]
-        public string CanonicalName { get; set; }
+        public string ProfileLink { get; set; }
 
         [Required]
         public string Title { get; set; }

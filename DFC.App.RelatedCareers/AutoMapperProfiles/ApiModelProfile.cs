@@ -9,7 +9,7 @@ namespace DFC.App.RelatedCareers.AutoMapperProfiles
         public ApiModelProfile()
         {
             CreateMap<RelatedCareerDataModel, RelatedCareerApiModel>()
-                .ForMember(d => d.Url, s => s.MapFrom(a => a.CanonicalName))
+                .ForMember(d => d.Url, s => s.MapFrom(a => a.ProfileLink))
                 ;
         }
     }
