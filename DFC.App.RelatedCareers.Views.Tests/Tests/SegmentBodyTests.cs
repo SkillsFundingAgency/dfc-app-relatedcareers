@@ -28,7 +28,7 @@ namespace DFC.App.RelatedCareers.Views.Tests.Tests
                     {
                         new RelatedCareerDataViewModel
                         {
-                            CanonicalName = JobCanonicalName,
+                            ProfileLink = JobCanonicalName,
                             Title = JobTitle,
                         },
                     },

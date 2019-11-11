@@ -4,7 +4,7 @@
     <ul class="list list-big">
         @foreach (var relatedCareerDataViewModel in Model.Data.RelatedCareers)
         {
-            <li><a href="/@Model.RoutePrefix/@relatedCareerDataViewModel.CanonicalName">@relatedCareerDataViewModel.Title</a></li>
+            <li><a href="/@Model.RoutePrefix@relatedCareerDataViewModel.ProfileLink">@relatedCareerDataViewModel.Title</a></li>
         }
     </ul>
 </div>

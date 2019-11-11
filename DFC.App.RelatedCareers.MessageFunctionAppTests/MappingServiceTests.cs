@@ -104,19 +104,19 @@ namespace DFC.App.RelatedCareers.MessageFunctionAppTests
                         new RelatedCareerDataModel
                         {
                             Id = RelatedCareerId1,
-                            CanonicalName = Link1,
+                            ProfileLink = Link1,
                             Title = Title1,
                         },
                         new RelatedCareerDataModel
                         {
                             Id = RelatedCareerId2,
-                            CanonicalName = Link2,
+                            ProfileLink = Link2,
                             Title = Title2,
                         },
                         new RelatedCareerDataModel
                         {
                             Id = RelatedCareerId3,
-                            CanonicalName = Link3,
+                            ProfileLink = Link3,
                             Title = Title3,
                         },
                     },
