@@ -18,8 +18,7 @@ namespace DFC.App.RelatedCareers.MessageFunctionApp.AutomapperProfile
                 .ForMember(d => d.LastReviewed, s => s.MapFrom(a => a.LastModified))
                 .ForMember(d => d.RelatedCareers, s => s.MapFrom(a => a.RelatedCareersData));
 
-            CreateMap<RelatedCareersServiceBusModel, RelatedCareerDataModel>()
-                .ForMember(d => d.ProfileLink, s => s.MapFrom(a => a.ProfileLink));
+            CreateMap<RelatedCareersServiceBusModel, RelatedCareerDataModel>();
         }
     }
 }
