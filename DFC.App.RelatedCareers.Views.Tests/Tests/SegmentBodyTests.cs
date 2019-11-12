@@ -10,12 +10,12 @@ namespace DFC.App.RelatedCareers.Views.Tests.Tests
     public class SegmentBodyTests : TestsBase
     {
         private const string JobTitle = "Related Job 1 Title";
-        private const string JobCanonicalName = "relatedJob1";
+        private const string JobCanonicalName = "/relatedJob1";
 
         [Fact]
         public void ContainsContentFromModel()
         {
-            var expectedRelatedCareerMarkup = $"<li><a href=\"/{SegmentController.SegmentRoutePrefix}/{JobCanonicalName}\">{JobTitle}</a></li>";
+            var expectedRelatedCareerMarkup = $"<li><a href=\"/{SegmentController.SegmentRoutePrefix}{JobCanonicalName}\">{JobTitle}</a></li>";
 
             var model = new DocumentViewModel
             {

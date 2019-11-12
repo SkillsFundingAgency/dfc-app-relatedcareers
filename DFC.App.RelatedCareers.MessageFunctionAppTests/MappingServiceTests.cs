@@ -120,7 +120,6 @@ namespace DFC.App.RelatedCareers.MessageFunctionAppTests
                             Title = Title3,
                         },
                     },
-                    LastReviewed = LastModified,
                 },
             };
         }

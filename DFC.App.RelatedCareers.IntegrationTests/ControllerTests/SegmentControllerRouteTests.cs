@@ -103,7 +103,6 @@ namespace DFC.App.RelatedCareers.IntegrationTests.ControllerTests
                 SocLevelTwo = "12PostSoc",
                 Data = new RelatedCareerSegmentDataModel
                 {
-                    LastReviewed = DateTime.UtcNow,
                     RelatedCareers = new List<RelatedCareerDataModel>
                     {
                         new RelatedCareerDataModel
@@ -140,7 +139,6 @@ namespace DFC.App.RelatedCareers.IntegrationTests.ControllerTests
                 SocLevelTwo = DataSeeding.MainJobSocLevelTwo,
                 Data = new RelatedCareerSegmentDataModel
                 {
-                    LastReviewed = DateTime.UtcNow,
                     RelatedCareers = new List<RelatedCareerDataModel>
                     {
                         new RelatedCareerDataModel
@@ -177,7 +175,6 @@ namespace DFC.App.RelatedCareers.IntegrationTests.ControllerTests
                 SocLevelTwo = "11PutSoc",
                 Data = new RelatedCareerSegmentDataModel
                 {
-                    LastReviewed = DateTime.UtcNow,
                     RelatedCareers = new List<RelatedCareerDataModel>
                     {
                         new RelatedCareerDataModel
@@ -217,9 +214,9 @@ namespace DFC.App.RelatedCareers.IntegrationTests.ControllerTests
                 DocumentId = documentId,
                 CanonicalName = documentId.ToString().ToLowerInvariant(),
                 SocLevelTwo = "12345",
+                LastReviewed = DateTime.UtcNow,
                 Data = new RelatedCareerSegmentDataModel
                 {
-                    LastReviewed = DateTime.UtcNow,
                     RelatedCareers = new List<RelatedCareerDataModel>
                     {
                         new RelatedCareerDataModel
