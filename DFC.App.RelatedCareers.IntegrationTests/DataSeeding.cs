@@ -38,7 +38,6 @@ namespace DFC.App.RelatedCareers.IntegrationTests
                     SocLevelTwo = MainJobSocLevelTwo,
                     Data = new RelatedCareerSegmentDataModel
                     {
-                        LastReviewed = DateTime.UtcNow,
                         RelatedCareers = new List<RelatedCareerDataModel>
                         {
                             new RelatedCareerDataModel
@@ -65,7 +64,6 @@ namespace DFC.App.RelatedCareers.IntegrationTests
                     SocLevelTwo = Job2SocLevelTwo,
                     Data = new RelatedCareerSegmentDataModel
                     {
-                        LastReviewed = DateTime.UtcNow,
                         RelatedCareers = new List<RelatedCareerDataModel>
                         {
                             new RelatedCareerDataModel
@@ -92,7 +90,6 @@ namespace DFC.App.RelatedCareers.IntegrationTests
                     SocLevelTwo = Job3SocLevelTwo,
                     Data = new RelatedCareerSegmentDataModel
                     {
-                        LastReviewed = DateTime.UtcNow,
                         RelatedCareers = new List<RelatedCareerDataModel>
                         {
                             new RelatedCareerDataModel
