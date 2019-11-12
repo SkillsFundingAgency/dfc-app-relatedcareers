@@ -15,8 +15,6 @@ namespace DFC.App.RelatedCareers.Data.Models
         [Required]
         public string CanonicalName { get; set; }
 
-        public DateTime LastReviewed { get; set; }
-
         public string PartitionKey => SocLevelTwo;
 
         [Required]

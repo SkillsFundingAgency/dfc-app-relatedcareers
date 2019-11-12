@@ -99,10 +99,10 @@ namespace DFC.App.RelatedCareers.IntegrationTests.ControllerTests
             {
                 DocumentId = Guid.NewGuid(),
                 CanonicalName = Guid.NewGuid().ToString(),
-                LastReviewed = DateTime.UtcNow,
                 SocLevelTwo = "12PostSoc",
                 Data = new RelatedCareerSegmentDataModel
                 {
+                    LastReviewed = DateTime.UtcNow,
                     RelatedCareers = new List<RelatedCareerDataModel>
                     {
                         new RelatedCareerDataModel
@@ -135,10 +135,10 @@ namespace DFC.App.RelatedCareers.IntegrationTests.ControllerTests
             {
                 DocumentId = DataSeeding.MainArticleGuid,
                 CanonicalName = DataSeeding.Job1CanonicalName,
-                LastReviewed = DateTime.UtcNow,
                 SocLevelTwo = DataSeeding.MainJobSocLevelTwo,
                 Data = new RelatedCareerSegmentDataModel
                 {
+                    LastReviewed = DateTime.UtcNow,
                     RelatedCareers = new List<RelatedCareerDataModel>
                     {
                         new RelatedCareerDataModel
@@ -171,10 +171,10 @@ namespace DFC.App.RelatedCareers.IntegrationTests.ControllerTests
             {
                 DocumentId = Guid.NewGuid(),
                 CanonicalName = Guid.NewGuid().ToString(),
-                LastReviewed = DateTime.UtcNow,
                 SocLevelTwo = "11PutSoc",
                 Data = new RelatedCareerSegmentDataModel
                 {
+                    LastReviewed = DateTime.UtcNow,
                     RelatedCareers = new List<RelatedCareerDataModel>
                     {
                         new RelatedCareerDataModel
@@ -214,9 +214,9 @@ namespace DFC.App.RelatedCareers.IntegrationTests.ControllerTests
                 DocumentId = documentId,
                 CanonicalName = documentId.ToString().ToLowerInvariant(),
                 SocLevelTwo = "12345",
-                LastReviewed = DateTime.UtcNow,
                 Data = new RelatedCareerSegmentDataModel
                 {
+                    LastReviewed = DateTime.UtcNow,
                     RelatedCareers = new List<RelatedCareerDataModel>
                     {
                         new RelatedCareerDataModel

@@ -34,10 +34,10 @@ namespace DFC.App.RelatedCareers.IntegrationTests
                 {
                     DocumentId = MainArticleGuid,
                     CanonicalName = Job1CanonicalName,
-                    LastReviewed = DateTime.UtcNow,
                     SocLevelTwo = MainJobSocLevelTwo,
                     Data = new RelatedCareerSegmentDataModel
                     {
+                        LastReviewed = DateTime.UtcNow,
                         RelatedCareers = new List<RelatedCareerDataModel>
                         {
                             new RelatedCareerDataModel
@@ -60,10 +60,10 @@ namespace DFC.App.RelatedCareers.IntegrationTests
                 {
                     DocumentId = Job2ArticleGuid,
                     CanonicalName = Job2CanonicalName,
-                    LastReviewed = DateTime.UtcNow,
                     SocLevelTwo = Job2SocLevelTwo,
                     Data = new RelatedCareerSegmentDataModel
                     {
+                        LastReviewed = DateTime.UtcNow,
                         RelatedCareers = new List<RelatedCareerDataModel>
                         {
                             new RelatedCareerDataModel
@@ -86,10 +86,10 @@ namespace DFC.App.RelatedCareers.IntegrationTests
                 {
                     DocumentId = Job3ArticleGuid,
                     CanonicalName = Job3CanonicalName,
-                    LastReviewed = DateTime.UtcNow,
                     SocLevelTwo = Job3SocLevelTwo,
                     Data = new RelatedCareerSegmentDataModel
                     {
+                        LastReviewed = DateTime.UtcNow,
                         RelatedCareers = new List<RelatedCareerDataModel>
                         {
                             new RelatedCareerDataModel

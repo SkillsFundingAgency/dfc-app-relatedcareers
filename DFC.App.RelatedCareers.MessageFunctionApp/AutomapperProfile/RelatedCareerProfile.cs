@@ -11,10 +11,10 @@ namespace DFC.App.RelatedCareers.MessageFunctionApp.AutomapperProfile
             CreateMap<JobProfileMessage, RelatedCareersSegmentModel>()
                 .ForMember(d => d.Data, s => s.MapFrom(a => a))
                 .ForMember(d => d.DocumentId, s => s.MapFrom(a => a.JobProfileId))
-                .ForMember(d => d.LastReviewed, s => s.MapFrom(a => a.LastModified))
                 .ForMember(d => d.Etag, s => s.Ignore());
 
             CreateMap<JobProfileMessage, RelatedCareerSegmentDataModel>()
+                .ForMember(d => d.LastReviewed, s => s.MapFrom(a => a.LastModified))
                 .ForMember(d => d.RelatedCareers, s => s.MapFrom(a => a.RelatedCareersData));
 
             CreateMap<RelatedCareersServiceBusModel, RelatedCareerDataModel>();

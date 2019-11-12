@@ -93,12 +93,12 @@ namespace DFC.App.RelatedCareers.MessageFunctionAppTests
             {
                 CanonicalName = TestJobName,
                 SocLevelTwo = SocCodeId,
-                LastReviewed = LastModified,
                 Etag = null,
                 DocumentId = JobProfileId,
                 SequenceNumber = SequenceNumber,
                 Data = new RelatedCareerSegmentDataModel
                 {
+                    LastReviewed = LastModified,
                     RelatedCareers = new List<RelatedCareerDataModel>
                     {
                         new RelatedCareerDataModel

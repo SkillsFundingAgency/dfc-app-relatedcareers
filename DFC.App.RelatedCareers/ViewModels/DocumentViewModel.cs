@@ -11,8 +11,6 @@ namespace DFC.App.RelatedCareers.ViewModels
         [Display(Name = "Canonical Name")]
         public string CanonicalName { get; set; }
 
-        public DateTime LastReviewed { get; set; }
-
         public string RoutePrefix { get; set; }
 
         public DocumentDataViewModel Data { get; set; }
