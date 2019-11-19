@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using DFC.App.RelatedCareers.Data.Models;
 using DFC.App.RelatedCareers.Data.ServiceBusModels;
-using DFC.App.RelatedCareers.DraftSegmentService;
 using DFC.App.RelatedCareers.Repository.CosmosDb;
 using DFC.App.RelatedCareers.Repository.SitefinityApi;
 using DFC.App.RelatedCareers.SegmentService;
@@ -54,7 +53,6 @@ namespace DFC.App.RelatedCareers
             services.AddSingleton<IDocumentClient>(documentClient);
             services.AddSingleton<ICosmosRepository<RelatedCareersSegmentModel>, CosmosRepository<RelatedCareersSegmentModel>>();
             services.AddScoped<IRelatedCareersSegmentService, RelatedCareersSegmentService>();
-            services.AddScoped<IDraftRelatedCareersSegmentService, DraftRelatedCareersSegmentService>();
             services.AddSingleton<IJobProfileSegmentRefreshService<RefreshJobProfileSegmentServiceBusModel>, JobProfileSegmentRefreshService<RefreshJobProfileSegmentServiceBusModel>>();
             services.AddAutoMapper(typeof(Startup).Assembly);
 
