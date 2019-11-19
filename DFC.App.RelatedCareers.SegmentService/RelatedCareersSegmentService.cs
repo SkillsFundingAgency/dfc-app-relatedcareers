@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using DFC.App.RelatedCareers.Data.Models;
 using DFC.App.RelatedCareers.Data.ServiceBusModels;
-using DFC.App.RelatedCareers.DraftSegmentService;
 using DFC.App.RelatedCareers.Repository.CosmosDb;
 using System;
 using System.Collections.Generic;
@@ -13,14 +12,12 @@ namespace DFC.App.RelatedCareers.SegmentService
     public class RelatedCareersSegmentService : IRelatedCareersSegmentService
     {
         private readonly ICosmosRepository<RelatedCareersSegmentModel> repository;
-        private readonly IDraftRelatedCareersSegmentService draftRelatedCareersSegmentService;
         private readonly IMapper mapper;
         private readonly IJobProfileSegmentRefreshService<RefreshJobProfileSegmentServiceBusModel> jobProfileSegmentRefreshService;
 
-        public RelatedCareersSegmentService(ICosmosRepository<RelatedCareersSegmentModel> repository, IDraftRelatedCareersSegmentService draftRelatedCareersSegmentService, IMapper mapper, IJobProfileSegmentRefreshService<RefreshJobProfileSegmentServiceBusModel> jobProfileSegmentRefreshService)
+        public RelatedCareersSegmentService(ICosmosRepository<RelatedCareersSegmentModel> repository, IMapper mapper, IJobProfileSegmentRefreshService<RefreshJobProfileSegmentServiceBusModel> jobProfileSegmentRefreshService)
         {
             this.repository = repository;
-            this.draftRelatedCareersSegmentService = draftRelatedCareersSegmentService;
             this.mapper = mapper;
             this.jobProfileSegmentRefreshService = jobProfileSegmentRefreshService;
         }
@@ -40,16 +37,14 @@ namespace DFC.App.RelatedCareers.SegmentService
             return await repository.GetAsync(d => d.DocumentId == documentId).ConfigureAwait(false);
         }
 
-        public async Task<RelatedCareersSegmentModel> GetByNameAsync(string canonicalName, bool isDraft = false)
+        public async Task<RelatedCareersSegmentModel> GetByNameAsync(string canonicalName)
         {
             if (string.IsNullOrWhiteSpace(canonicalName))
             {
                 throw new ArgumentNullException(nameof(canonicalName));
             }
 
-            return isDraft
-                ? await draftRelatedCareersSegmentService.GetSitefinityData(canonicalName.ToLowerInvariant()).ConfigureAwait(false)
-                : await repository.GetAsync(d => d.CanonicalName == canonicalName.ToLowerInvariant()).ConfigureAwait(false);
+            return await repository.GetAsync(d => d.CanonicalName == canonicalName.ToLowerInvariant()).ConfigureAwait(false);
         }
 
         public async Task<HttpStatusCode> UpsertAsync(RelatedCareersSegmentModel relatedCareersSegmentModel)
