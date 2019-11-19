@@ -1,6 +1,5 @@
 ﻿using DFC.App.RelatedCareers.Data.Models;
 using DFC.App.RelatedCareers.Data.ServiceBusModels;
-using DFC.App.RelatedCareers.DraftSegmentService;
 using DFC.App.RelatedCareers.Repository.CosmosDb;
 using FakeItEasy;
 using System.Collections.Generic;
@@ -17,11 +16,10 @@ namespace DFC.App.RelatedCareers.SegmentService.UnitTests
 
         public SegmentServiceGetAllTests()
         {
-            var draftRelatedCareersSegmentService = A.Fake<IDraftRelatedCareersSegmentService>();
             var mapper = A.Fake<AutoMapper.IMapper>();
             var jobProfileSegmentRefreshService = A.Fake<IJobProfileSegmentRefreshService<RefreshJobProfileSegmentServiceBusModel>>();
             repository = A.Fake<ICosmosRepository<RelatedCareersSegmentModel>>();
-            relatedCareersSegmentService = new RelatedCareersSegmentService(repository, draftRelatedCareersSegmentService, mapper, jobProfileSegmentRefreshService);
+            relatedCareersSegmentService = new RelatedCareersSegmentService(repository, mapper, jobProfileSegmentRefreshService);
         }
 
         [Fact]

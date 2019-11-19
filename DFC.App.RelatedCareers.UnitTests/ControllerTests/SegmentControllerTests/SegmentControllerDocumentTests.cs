@@ -20,14 +20,14 @@ namespace DFC.App.RelatedCareers.UnitTests.ControllerTests.SegmentControllerTest
             var expectedResult = A.Fake<RelatedCareersSegmentModel>();
             var controller = BuildSegmentController(mediaTypeName);
 
-            A.CallTo(() => FakeRelatedCareersSegmentService.GetByNameAsync(A<string>.Ignored, A<bool>.Ignored)).Returns(expectedResult);
+            A.CallTo(() => FakeRelatedCareersSegmentService.GetByNameAsync(A<string>.Ignored)).Returns(expectedResult);
             A.CallTo(() => FakeMapper.Map<DocumentViewModel>(A<RelatedCareersSegmentModel>.Ignored)).Returns(A.Fake<DocumentViewModel>());
 
             // Act
             var result = await controller.Document(Article).ConfigureAwait(false);
 
             // Assert
-            A.CallTo(() => FakeRelatedCareersSegmentService.GetByNameAsync(A<string>.Ignored, A<bool>.Ignored)).MustHaveHappenedOnceExactly();
+            A.CallTo(() => FakeRelatedCareersSegmentService.GetByNameAsync(A<string>.Ignored)).MustHaveHappenedOnceExactly();
             A.CallTo(() => FakeMapper.Map<DocumentViewModel>(A<RelatedCareersSegmentModel>.Ignored)).MustHaveHappenedOnceExactly();
 
             var viewResult = Assert.IsType<ViewResult>(result);
@@ -42,13 +42,13 @@ namespace DFC.App.RelatedCareers.UnitTests.ControllerTests.SegmentControllerTest
         {
             // Arrange
             var controller = BuildSegmentController(mediaTypeName);
-            A.CallTo(() => FakeRelatedCareersSegmentService.GetByNameAsync(A<string>.Ignored, A<bool>.Ignored)).Returns((RelatedCareersSegmentModel)null);
+            A.CallTo(() => FakeRelatedCareersSegmentService.GetByNameAsync(A<string>.Ignored)).Returns((RelatedCareersSegmentModel)null);
 
             // Act
             var result = await controller.Document(Article).ConfigureAwait(false);
 
             // Assert
-            A.CallTo(() => FakeRelatedCareersSegmentService.GetByNameAsync(A<string>.Ignored, A<bool>.Ignored)).MustHaveHappenedOnceExactly();
+            A.CallTo(() => FakeRelatedCareersSegmentService.GetByNameAsync(A<string>.Ignored)).MustHaveHappenedOnceExactly();
             var statusResult = Assert.IsType<NoContentResult>(result);
             Assert.Equal((int)HttpStatusCode.NoContent, statusResult.StatusCode);
 

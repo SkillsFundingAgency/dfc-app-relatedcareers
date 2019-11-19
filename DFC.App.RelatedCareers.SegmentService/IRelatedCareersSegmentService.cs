@@ -14,7 +14,7 @@ namespace DFC.App.RelatedCareers.SegmentService
 
         Task<RelatedCareersSegmentModel> GetByIdAsync(Guid documentId);
 
-        Task<RelatedCareersSegmentModel> GetByNameAsync(string canonicalName, bool isDraft = false);
+        Task<RelatedCareersSegmentModel> GetByNameAsync(string canonicalName);
 
         Task<HttpStatusCode> UpsertAsync(RelatedCareersSegmentModel relatedCareersSegmentModel);
 

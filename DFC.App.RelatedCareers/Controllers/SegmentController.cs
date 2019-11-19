@@ -67,7 +67,7 @@ namespace DFC.App.RelatedCareers.Controllers
         {
             logger.LogInformation($"{DocumentActionName} has been called with: {article}");
 
-            var relatedCareersSegmentModel = await relatedCareersSegmentService.GetByNameAsync(article, Request.IsDraftRequest()).ConfigureAwait(false);
+            var relatedCareersSegmentModel = await relatedCareersSegmentService.GetByNameAsync(article).ConfigureAwait(false);
             if (relatedCareersSegmentModel != null)
             {
                 var viewModel = mapper.Map<DocumentViewModel>(relatedCareersSegmentModel);
