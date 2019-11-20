@@ -36,7 +36,7 @@ namespace DFC.App.RelatedCareers.Views.Tests.Tests
             };
 
             var viewBag = new Dictionary<string, object>();
-            var viewRenderer = new RazorEngineRenderer(viewRootPath);
+            var viewRenderer = new RazorEngineRenderer(ViewRootPath);
 
             var viewRenderResponse = viewRenderer.Render(@"Body", model, viewBag);
 
