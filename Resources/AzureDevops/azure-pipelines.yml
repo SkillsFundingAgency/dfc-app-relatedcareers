@@ -30,7 +30,7 @@ jobs:
     - visualstudio
 
   steps:
-  # Build DFC.App.RelatedCareers
+  # Build DFC.App.RelatedCareers.
   - template: AzureDevOpsTemplates/Build/dfc-dotnetcore-build-sonar.yml@dfc-devops
     parameters:
       SolutionBaseName: $(SolutionBaseName)
@@ -39,3 +39,12 @@ jobs:
       DotNetCoreVersion: 2.2.402
       PublishWebApp: true
       TestSuffix: UnitTests
+
+  # Build DFC.App.RelatedCareers.MessageFunctionApp
+  - template: AzureDevOpsTemplates/Build/dfc-dotnetcore-build-notests.yml@dfc-devops
+    parameters:
+      SolutionBaseName: $(SolutionBaseName).MessageFunctionApp
+      BuildPlatform: $(BuildPlatform)
+      BuildConfiguration: $(BuildConfiguration)
+      DotNetCoreVersion: 2.2.402
+      PublishWebApp: true
