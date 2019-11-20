@@ -30,7 +30,7 @@ jobs:
     - visualstudio
 
   steps:
-  # Build DFC.App.RelatedCareers.
+  # Build DFC.App.RelatedCareers
   - template: AzureDevOpsTemplates/Build/dfc-dotnetcore-build-sonar.yml@dfc-devops
     parameters:
       SolutionBaseName: $(SolutionBaseName)
