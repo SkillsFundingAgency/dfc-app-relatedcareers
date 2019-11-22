@@ -45,7 +45,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DFC.App.RelatedCareers.Data\DFC.App.RelatedCareers.Data.csproj" />
-    <ProjectReference Include="..\DFC.App.RelatedCareers.Repository.SitefinityApi\DFC.App.RelatedCareers.Repository.SitefinityApi.csproj" />
     <ProjectReference Include="..\DFC.App.RelatedCareers.SegmentService\DFC.App.RelatedCareers.SegmentService.csproj" />
   </ItemGroup>
 

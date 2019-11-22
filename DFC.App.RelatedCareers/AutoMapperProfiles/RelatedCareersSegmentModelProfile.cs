@@ -2,9 +2,11 @@
 using DFC.App.RelatedCareers.Data.Models;
 using DFC.App.RelatedCareers.Data.ServiceBusModels;
 using DFC.App.RelatedCareers.ViewModels;
+using System.Diagnostics.CodeAnalysis;
 
 namespace DFC.App.RelatedCareers.AutoMapperProfiles
 {
+    [ExcludeFromCodeCoverage]
     public class RelatedCareersSegmentModelProfile : Profile
     {
         public RelatedCareersSegmentModelProfile()

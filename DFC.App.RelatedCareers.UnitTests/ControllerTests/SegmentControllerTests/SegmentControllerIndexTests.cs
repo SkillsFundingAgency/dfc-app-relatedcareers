@@ -19,9 +19,10 @@ namespace DFC.App.RelatedCareers.UnitTests.ControllerTests.SegmentControllerTest
             const int resultsCount = 2;
             var expectedResults = A.CollectionOfFake<RelatedCareersSegmentModel>(resultsCount);
             var controller = BuildSegmentController(mediaTypeName);
+            var expectedIndexDocumentViewModel = new IndexDocumentViewModel { CanonicalName = "test-canonical-name" };
 
             A.CallTo(() => FakeRelatedCareersSegmentService.GetAllAsync()).Returns(expectedResults);
-            A.CallTo(() => FakeMapper.Map<IndexDocumentViewModel>(A<RelatedCareersSegmentModel>.Ignored)).Returns(A.Fake<IndexDocumentViewModel>());
+            A.CallTo(() => FakeMapper.Map<IndexDocumentViewModel>(A<RelatedCareersSegmentModel>.Ignored)).Returns(expectedIndexDocumentViewModel);
 
             // Act
             var result = await controller.Index().ConfigureAwait(false);
@@ -44,9 +45,10 @@ namespace DFC.App.RelatedCareers.UnitTests.ControllerTests.SegmentControllerTest
         {
             // Arrange
             var controller = BuildSegmentController(mediaTypeName);
+            var expectedIndexDocumentViewModel = new IndexDocumentViewModel { CanonicalName = "test-canonical-name" };
 
             A.CallTo(() => FakeRelatedCareersSegmentService.GetAllAsync()).Returns((IEnumerable<RelatedCareersSegmentModel>)null);
-            A.CallTo(() => FakeMapper.Map<IndexDocumentViewModel>(A<RelatedCareersSegmentModel>.Ignored)).Returns(A.Fake<IndexDocumentViewModel>());
+            A.CallTo(() => FakeMapper.Map<IndexDocumentViewModel>(A<RelatedCareersSegmentModel>.Ignored)).Returns(expectedIndexDocumentViewModel);
 
             // Act
             var result = await controller.Index().ConfigureAwait(false);

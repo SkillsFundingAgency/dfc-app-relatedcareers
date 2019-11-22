@@ -2,7 +2,6 @@
 using DFC.App.RelatedCareers.Data.Models;
 using DFC.App.RelatedCareers.Data.ServiceBusModels;
 using DFC.App.RelatedCareers.Repository.CosmosDb;
-using DFC.App.RelatedCareers.Repository.SitefinityApi;
 using DFC.App.RelatedCareers.SegmentService;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -10,16 +9,18 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
+using Microsoft.Azure.ServiceBus;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace DFC.App.RelatedCareers
 {
+    [ExcludeFromCodeCoverage]
     public class Startup
     {
         public const string CosmosDbConfigAppSettings = "Configuration:CosmosDbConnections:JobProfileSegment";
-        public const string SitefinityApiAppSettings = "SitefinityApi";
         public const string ServiceBusOptionsAppSettings = "ServiceBusOptions";
 
         private readonly IConfiguration configuration;
@@ -41,16 +42,13 @@ namespace DFC.App.RelatedCareers
             });
 
             var serviceBusOptions = configuration.GetSection(ServiceBusOptionsAppSettings).Get<ServiceBusOptions>();
-            services.AddSingleton(serviceBusOptions ?? new ServiceBusOptions());
-
-
             var cosmosDbConnection = configuration.GetSection(CosmosDbConfigAppSettings).Get<CosmosDbConnection>();
             var documentClient = new DocumentClient(new Uri(cosmosDbConnection.EndpointUrl), cosmosDbConnection.AccessKey);
-            var sitefinityApiConnection = configuration.GetSection(SitefinityApiAppSettings).Get<SitefinityAPIConnectionSettings>();
+            var topicClient = new TopicClient(serviceBusOptions.ServiceBusConnectionString, serviceBusOptions.TopicName);
 
-            services.AddSingleton(sitefinityApiConnection ?? new SitefinityAPIConnectionSettings());
             services.AddSingleton(cosmosDbConnection);
             services.AddSingleton<IDocumentClient>(documentClient);
+            services.AddSingleton<ITopicClient>(topicClient);
             services.AddSingleton<ICosmosRepository<RelatedCareersSegmentModel>, CosmosRepository<RelatedCareersSegmentModel>>();
             services.AddScoped<IRelatedCareersSegmentService, RelatedCareersSegmentService>();
             services.AddSingleton<IJobProfileSegmentRefreshService<RefreshJobProfileSegmentServiceBusModel>, JobProfileSegmentRefreshService<RefreshJobProfileSegmentServiceBusModel>>();

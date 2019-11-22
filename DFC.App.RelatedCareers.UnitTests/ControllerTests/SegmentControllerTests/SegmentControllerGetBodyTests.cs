@@ -1,4 +1,5 @@
 ﻿using DFC.App.RelatedCareers.ApiModels;
+using DFC.App.RelatedCareers.Controllers;
 using DFC.App.RelatedCareers.Data.Models;
 using DFC.App.RelatedCareers.ViewModels;
 using FakeItEasy;
@@ -23,8 +24,28 @@ namespace DFC.App.RelatedCareers.UnitTests.ControllerTests.SegmentControllerTest
             var expectedResult = A.Fake<RelatedCareersSegmentModel>();
             var controller = BuildSegmentController(mediaTypeName);
 
+            var model = new DocumentViewModel
+            {
+                DocumentId = Guid.NewGuid(),
+                CanonicalName = "nurse",
+                RoutePrefix = SegmentController.SegmentRoutePrefix,
+                Data = new DocumentDataViewModel
+                {
+                    LastReviewed = DateTime.UtcNow,
+                    RelatedCareers = new List<RelatedCareerDataViewModel>
+                    {
+                        new RelatedCareerDataViewModel
+                        {
+                            Id = Guid.NewGuid(),
+                            ProfileLink = "related-job-1",
+                            Title = "RelatedJobTitle1",
+                        },
+                    },
+                },
+            };
+
             A.CallTo(() => FakeRelatedCareersSegmentService.GetByIdAsync(A<Guid>.Ignored)).Returns(expectedResult);
-            A.CallTo(() => FakeMapper.Map<DocumentViewModel>(A<RelatedCareersSegmentModel>.Ignored)).Returns(A.Fake<DocumentViewModel>());
+            A.CallTo(() => FakeMapper.Map<DocumentViewModel>(A<RelatedCareersSegmentModel>.Ignored)).Returns(model);
 
             // Act
             var result = await controller.Body(documentId).ConfigureAwait(false);
@@ -64,7 +85,14 @@ namespace DFC.App.RelatedCareers.UnitTests.ControllerTests.SegmentControllerTest
         {
             // Arrange
             var relatedCareersSegmentModel = new RelatedCareersSegmentModel { CanonicalName = "SomeCanonicalName" };
-            var fakeRelatedCareerApiModel = A.Dummy<List<RelatedCareerApiModel>>();
+            var fakeRelatedCareerApiModel = new List<RelatedCareerApiModel>
+            {
+                new RelatedCareerApiModel
+                {
+                    Title = "SomeTitle1",
+                    Url = "someurl1",
+                },
+            };
 
             var controller = BuildSegmentController(mediaTypeName);
 
@@ -79,7 +107,7 @@ namespace DFC.App.RelatedCareers.UnitTests.ControllerTests.SegmentControllerTest
             A.CallTo(() => FakeMapper.Map<List<RelatedCareerApiModel>>(A<RelatedCareersSegmentModel>.Ignored)).MustHaveHappenedOnceExactly();
 
             var jsonResult = Assert.IsType<OkObjectResult>(result);
-            var model = Assert.IsAssignableFrom<List<RelatedCareerApiModel>>(jsonResult.Value);
+            Assert.IsAssignableFrom<List<RelatedCareerApiModel>>(jsonResult.Value);
 
             controller.Dispose();
         }

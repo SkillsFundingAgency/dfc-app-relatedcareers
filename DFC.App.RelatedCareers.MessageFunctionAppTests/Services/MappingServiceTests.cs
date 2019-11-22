@@ -9,7 +9,7 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 
-namespace DFC.App.RelatedCareers.MessageFunctionAppTests
+namespace DFC.App.RelatedCareers.MessageFunctionAppTests.Services
 {
     public class MappingServiceTests
     {
@@ -43,6 +43,7 @@ namespace DFC.App.RelatedCareers.MessageFunctionAppTests
         [Fact]
         public void MapToSegmentModelWhenJobProfileMessageSentThenItIsMappedCorrectly()
         {
+            // Arrange
             var fullJPMessage = BuildJobProfileMessage();
             var message = JsonConvert.SerializeObject(fullJPMessage);
             var expectedResponse = BuildExpectedResponse();
