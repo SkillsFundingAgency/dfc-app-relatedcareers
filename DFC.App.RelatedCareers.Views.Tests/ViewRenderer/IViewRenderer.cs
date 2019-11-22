@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace DFC.App.RelatedCareers.Views.Tests.ViewRenderer
+namespace DFC.App.RelatedCareers.Views.UnitTests.ViewRenderer
 {
     public interface IViewRenderer
     {

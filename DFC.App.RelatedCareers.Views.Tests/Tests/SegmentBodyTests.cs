@@ -1,11 +1,11 @@
 ﻿using DFC.App.RelatedCareers.Controllers;
 using DFC.App.RelatedCareers.ViewModels;
-using DFC.App.RelatedCareers.Views.Tests.ViewRenderer;
+using DFC.App.RelatedCareers.Views.UnitTests.ViewRenderer;
 using System;
 using System.Collections.Generic;
 using Xunit;
 
-namespace DFC.App.RelatedCareers.Views.Tests.Tests
+namespace DFC.App.RelatedCareers.Views.UnitTests.Tests
 {
     public class SegmentBodyTests : TestsBase
     {

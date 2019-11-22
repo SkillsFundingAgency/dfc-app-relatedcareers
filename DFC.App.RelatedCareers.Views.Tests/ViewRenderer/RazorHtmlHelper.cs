@@ -1,6 +1,6 @@
 ﻿using RazorEngine.Text;
 
-namespace DFC.App.RelatedCareers.Views.Tests.ViewRenderer
+namespace DFC.App.RelatedCareers.Views.UnitTests.ViewRenderer
 {
     public class RazorHtmlHelper
     {
