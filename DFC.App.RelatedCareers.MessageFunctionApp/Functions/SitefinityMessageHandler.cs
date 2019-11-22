@@ -17,7 +17,7 @@ namespace DFC.App.RelatedCareers.MessageFunctionApp.Functions
 
         [FunctionName("SitefinityMessageHandler")]
         public static async Task Run(
-            [ServiceBusTrigger("%cms-messages-topic%", "%cms-messages-subscription%",Connection = "service-bus-connection-string")] Message sitefinityMessage,
+            [ServiceBusTrigger("%cms-messages-topic%", "%cms-messages-subscription%", Connection = "service-bus-connection-string")] Message sitefinityMessage,
             [Inject] IMessageProcessor messageProcessor,
             [Inject] IMessagePropertiesService messagePropertiesService,
             ILogger log)
@@ -53,7 +53,6 @@ namespace DFC.App.RelatedCareers.MessageFunctionApp.Functions
 
             var messageAction = Enum.Parse<MessageAction>(actionType?.ToString());
             var messageContentType = Enum.Parse<MessageContentType>(contentType?.ToString());
-
             var sequenceNumber = messagePropertiesService.GetSequenceNumber(sitefinityMessage);
 
             var result = await messageProcessor.ProcessAsync(message, sequenceNumber, messageContentType, messageAction).ConfigureAwait(false);
