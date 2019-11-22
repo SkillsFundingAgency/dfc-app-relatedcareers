@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using DFC.App.RelatedCareers.Data.Enums;
+﻿using DFC.App.RelatedCareers.Data.Enums;
 using System;
 using System.Net;
 using System.Threading.Tasks;
@@ -8,26 +7,21 @@ namespace DFC.App.RelatedCareers.MessageFunctionApp.Services
 {
     public class MessageProcessor : IMessageProcessor
     {
-        private readonly IMapper mapper;
         private readonly IHttpClientService httpClientService;
         private readonly IMappingService mappingService;
 
-        public MessageProcessor(IMapper mapper, IHttpClientService httpClientService, IMappingService mappingService)
+        public MessageProcessor(IHttpClientService httpClientService, IMappingService mappingService)
         {
-            this.mapper = mapper;
             this.httpClientService = httpClientService;
             this.mappingService = mappingService;
         }
 
         public async Task<HttpStatusCode> ProcessAsync(string message, long sequenceNumber, MessageContentType messageContentType, MessageAction messageAction)
         {
-            switch (messageContentType)
+            if (messageContentType == MessageContentType.JobProfile)
             {
-                case MessageContentType.JobProfile:
-                    return await ProcessJobProfileMessageAsync(message, messageAction, sequenceNumber).ConfigureAwait(false);
-
-                default:
-                    break;
+                return await ProcessJobProfileMessageAsync(message, messageAction, sequenceNumber)
+                    .ConfigureAwait(false);
             }
 
             return await Task.FromResult(HttpStatusCode.InternalServerError).ConfigureAwait(false);
