@@ -3,7 +3,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace DFC.App.RelatedCareers.MessageFunctionAppTests.ClientHandlers
+namespace DFC.App.RelatedCareers.MessageFunctionApp.UnitTests.ClientHandlers
 {
     public class FakeHttpMessageHandler : HttpMessageHandler
     {

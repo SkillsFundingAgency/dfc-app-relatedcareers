@@ -8,7 +8,7 @@ using System.Net;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace DFC.App.RelatedCareers.MessageFunctionAppTests.Services
+namespace DFC.App.RelatedCareers.MessageFunctionApp.UnitTests.Services
 {
     public class MessageProcessorTests
     {

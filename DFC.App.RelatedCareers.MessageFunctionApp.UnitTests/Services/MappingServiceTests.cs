@@ -9,7 +9,7 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 
-namespace DFC.App.RelatedCareers.MessageFunctionAppTests.Services
+namespace DFC.App.RelatedCareers.MessageFunctionApp.UnitTests.Services
 {
     public class MappingServiceTests
     {

@@ -1,7 +1,7 @@
 ﻿using DFC.App.RelatedCareers.Data.Models;
 using DFC.App.RelatedCareers.MessageFunctionApp.Models;
 using DFC.App.RelatedCareers.MessageFunctionApp.Services;
-using DFC.App.RelatedCareers.MessageFunctionAppTests.ClientHandlers;
+using DFC.App.RelatedCareers.MessageFunctionApp.UnitTests.ClientHandlers;
 using FakeItEasy;
 using Microsoft.Extensions.Logging;
 using System;
