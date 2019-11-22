@@ -15,6 +15,7 @@ namespace DFC.App.RelatedCareers.Views.Tests.Tests
         [Fact]
         public void ContainsContentFromModel()
         {
+            // Arrange
             var expectedRelatedCareerMarkup = $"<li><a href=\"/{SegmentController.SegmentRoutePrefix}{JobCanonicalName}\">{JobTitle}</a></li>";
 
             var model = new DocumentViewModel
@@ -38,8 +39,10 @@ namespace DFC.App.RelatedCareers.Views.Tests.Tests
             var viewBag = new Dictionary<string, object>();
             var viewRenderer = new RazorEngineRenderer(ViewRootPath);
 
+            // Act
             var viewRenderResponse = viewRenderer.Render(@"Body", model, viewBag);
 
+            // Assert
             Assert.Contains(expectedRelatedCareerMarkup, viewRenderResponse, StringComparison.OrdinalIgnoreCase);
         }
     }

@@ -1,4 +1,5 @@
-﻿using DFC.App.RelatedCareers.MessageFunctionApp.Models;
+﻿using AutoMapper;
+using DFC.App.RelatedCareers.MessageFunctionApp.Models;
 using DFC.App.RelatedCareers.MessageFunctionApp.Services;
 using DFC.Functions.DI.Standard;
 using Microsoft.Azure.WebJobs;
@@ -7,13 +8,14 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Net.Http;
-using AutoMapper;
 
 [assembly: WebJobsStartup(typeof(DFC.App.RelatedCareers.MessageFunctionApp.Startup.WebJobsExtensionStartup), "Web Jobs Extension Startup")]
 
 namespace DFC.App.RelatedCareers.MessageFunctionApp.Startup
 {
+    [ExcludeFromCodeCoverage]
     public class WebJobsExtensionStartup : IWebJobsStartup
     {
         public void Configure(IWebJobsBuilder builder)
@@ -34,6 +36,7 @@ namespace DFC.App.RelatedCareers.MessageFunctionApp.Startup
             builder?.Services.AddSingleton<IMessageProcessor, MessageProcessor>();
             builder?.Services.AddSingleton<IMappingService, MappingService>();
             builder?.Services.AddSingleton<ILogger, Logger<WebJobsExtensionStartup>>();
+            builder?.Services.AddSingleton<IMessagePropertiesService, MessagePropertiesService>();
         }
     }
 }
