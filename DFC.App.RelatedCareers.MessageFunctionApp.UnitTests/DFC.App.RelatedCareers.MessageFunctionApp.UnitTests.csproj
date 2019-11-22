@@ -37,10 +37,4 @@
     <ProjectReference Include="..\DFC.App.RelatedCareers.MessageFunctionApp\DFC.App.RelatedCareers.MessageFunctionApp.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="appsettings.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
 </Project>

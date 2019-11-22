@@ -12,7 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace DFC.App.RelatedCareers.MessageFunctionAppTests.Functions
+namespace DFC.App.RelatedCareers.MessageFunctionApp.UnitTests.Functions
 {
     public class SitefinityMessageHandlerTests
     {
