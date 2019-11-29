@@ -1,6 +1,6 @@
 ﻿using RazorEngine.Templating;
 
-namespace DFC.App.RelatedCareers.Views.Tests.ViewRenderer
+namespace DFC.App.RelatedCareers.Views.UnitTests.ViewRenderer
 {
     public class HtmlSupportTemplateBase<T> : TemplateBase<T>
     {

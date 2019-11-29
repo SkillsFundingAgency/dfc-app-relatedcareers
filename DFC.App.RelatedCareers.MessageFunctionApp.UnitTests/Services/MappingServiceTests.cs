@@ -9,18 +9,11 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 
-namespace DFC.App.RelatedCareers.MessageFunctionAppTests.Services
+namespace DFC.App.RelatedCareers.MessageFunctionApp.UnitTests.Services
 {
     public class MappingServiceTests
     {
         private const int SequenceNumber = 123;
-
-        private readonly IMappingService mappingService;
-        private static readonly Guid JobProfileId = Guid.NewGuid();
-        private readonly DateTime LastModified = DateTime.UtcNow.AddDays(-1);
-        private readonly Guid RelatedCareerId1 = Guid.NewGuid();
-        private readonly Guid RelatedCareerId2 = Guid.NewGuid();
-        private readonly Guid RelatedCareerId3 = Guid.NewGuid();
 
         private const string SocCodeId = "99";
         private const string TestJobName = "Test Job name";
@@ -30,6 +23,13 @@ namespace DFC.App.RelatedCareers.MessageFunctionAppTests.Services
         private const string Link2 = "job2-canonical";
         private const string Title3 = "Job 3 Title";
         private const string Link3 = "job3-canonical";
+
+        private static readonly Guid JobProfileId = Guid.NewGuid();
+        private readonly IMappingService mappingService;
+        private readonly DateTime lastModified = DateTime.UtcNow.AddDays(-1);
+        private readonly Guid relatedCareerId1 = Guid.NewGuid();
+        private readonly Guid relatedCareerId2 = Guid.NewGuid();
+        private readonly Guid relatedCareerId3 = Guid.NewGuid();
 
         public MappingServiceTests()
         {
@@ -61,26 +61,26 @@ namespace DFC.App.RelatedCareers.MessageFunctionAppTests.Services
             {
                 JobProfileId = JobProfileId,
                 CanonicalName = TestJobName,
-                LastModified = LastModified,
+                LastModified = lastModified,
 
                 SocLevelTwo = SocCodeId,
                 RelatedCareersData = new List<RelatedCareersServiceBusModel>
                 {
                     new RelatedCareersServiceBusModel
                     {
-                        Id = RelatedCareerId1,
+                        Id = relatedCareerId1,
                         Title = Title1,
                         ProfileLink = Link1,
                     },
                     new RelatedCareersServiceBusModel
                     {
-                        Id = RelatedCareerId2,
+                        Id = relatedCareerId2,
                         Title = Title2,
                         ProfileLink = Link2,
                     },
                     new RelatedCareersServiceBusModel
                     {
-                        Id = RelatedCareerId3,
+                        Id = relatedCareerId3,
                         Title = Title3,
                         ProfileLink = Link3,
                     },
@@ -99,24 +99,24 @@ namespace DFC.App.RelatedCareers.MessageFunctionAppTests.Services
                 SequenceNumber = SequenceNumber,
                 Data = new RelatedCareerSegmentDataModel
                 {
-                    LastReviewed = LastModified,
+                    LastReviewed = lastModified,
                     RelatedCareers = new List<RelatedCareerDataModel>
                     {
                         new RelatedCareerDataModel
                         {
-                            Id = RelatedCareerId1,
+                            Id = relatedCareerId1,
                             ProfileLink = Link1,
                             Title = Title1,
                         },
                         new RelatedCareerDataModel
                         {
-                            Id = RelatedCareerId2,
+                            Id = relatedCareerId2,
                             ProfileLink = Link2,
                             Title = Title2,
                         },
                         new RelatedCareerDataModel
                         {
-                            Id = RelatedCareerId3,
+                            Id = relatedCareerId3,
                             ProfileLink = Link3,
                             Title = Title3,
                         },

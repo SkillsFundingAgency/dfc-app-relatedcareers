@@ -47,7 +47,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{5B992550-B49
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ViewsTests", "ViewsTests", "{DEC36E8C-C9A4-4984-B06C-C501CA4AF19F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.App.RelatedCareers.Views.Tests", "DFC.App.RelatedCareers.Views.Tests\DFC.App.RelatedCareers.Views.Tests.csproj", "{46233E61-7613-4416-B11D-0EDFEBF0358B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.App.RelatedCareers.Views.UnitTests", "DFC.App.RelatedCareers.Views.UnitTests\DFC.App.RelatedCareers.Views.UnitTests.csproj", "{46233E61-7613-4416-B11D-0EDFEBF0358B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Functions", "Functions", "{A4781CB3-8E31-44C0-B531-E73AA13D8832}"
 EndProject
@@ -55,7 +55,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.App.RelatedCareers.Mess
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MessagingFunction", "MessagingFunction", "{C13953B0-6D0C-44D9-89CC-07AEA00AB1FA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.App.RelatedCareers.MessageFunctionAppTests", "DFC.App.RelatedCareers.MessageFunctionAppTests\DFC.App.RelatedCareers.MessageFunctionAppTests.csproj", "{E5CA9D24-48B2-4C27-8606-C412E1E86ED8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.App.RelatedCareers.MessageFunctionApp.UnitTests", "DFC.App.RelatedCareers.MessageFunctionApp.UnitTests\DFC.App.RelatedCareers.MessageFunctionApp.UnitTests.csproj", "{E5CA9D24-48B2-4C27-8606-C412E1E86ED8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

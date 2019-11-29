@@ -9,20 +9,21 @@ namespace DFC.App.RelatedCareers.IntegrationTests
 {
     public class DataSeeding
     {
+        internal const string Job1CanonicalName = "nurse";
+        internal const string MainJobSocLevelTwo = "12345Soc";
+        internal static readonly Guid MainArticleGuid = Guid.Parse("e2156143-e951-4570-a7a0-16f999f68661");
+
         private const string SegmentUrl = "/segment";
 
-        internal const string Job1CanonicalName = "nurse";
         private const string Job1Title = "Nurse Title";
         private const string Job2CanonicalName = "relatedJob2";
         private const string Job2Title = "Related Job 2 Title";
         private const string Job3CanonicalName = "relatedJob3";
         private const string Job3Title = "Related Job 3 Title";
 
-        internal static readonly string MainJobSocLevelTwo = "12345Soc";
-        private static readonly string Job2SocLevelTwo = "23456Soc";
-        private static readonly string Job3SocLevelTwo = "34567Soc";
+        private const string Job2SocLevelTwo = "23456Soc";
+        private const string Job3SocLevelTwo = "34567Soc";
 
-        internal static readonly Guid MainArticleGuid = Guid.Parse("e2156143-e951-4570-a7a0-16f999f68661");
         private static readonly Guid Job2ArticleGuid = Guid.Parse("e2156143-e951-4570-a7a0-26f999f68661");
         private static readonly Guid Job3ArticleGuid = Guid.Parse("e2156143-e951-4570-a7a0-36f999f68661");
 
