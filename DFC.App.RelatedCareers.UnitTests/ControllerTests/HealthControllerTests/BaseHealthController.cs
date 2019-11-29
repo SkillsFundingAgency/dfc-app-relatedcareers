@@ -10,13 +10,14 @@ namespace DFC.App.RelatedCareers.UnitTests.ControllerTests.HealthControllerTests
 {
     public class BaseHealthController
     {
+        protected IRelatedCareersSegmentService FakeRelatedCareersSegmentService;
+
         public BaseHealthController()
         {
             FakeLogger = A.Fake<ILogger<HealthController>>();
             FakeRelatedCareersSegmentService = A.Fake<IRelatedCareersSegmentService>();
         }
 
-        protected IRelatedCareersSegmentService FakeRelatedCareersSegmentService;
         protected ILogger<HealthController> FakeLogger { get; }
 
         protected HealthController BuildHealthController(string mediaTypeName)
