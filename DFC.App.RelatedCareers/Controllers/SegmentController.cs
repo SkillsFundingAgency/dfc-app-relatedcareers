@@ -3,8 +3,8 @@ using DFC.App.RelatedCareers.Data.Models;
 using DFC.App.RelatedCareers.Extensions;
 using DFC.App.RelatedCareers.SegmentService;
 using DFC.App.RelatedCareers.ViewModels;
+using DFC.Logger.AppInsights.Contracts;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,13 +25,13 @@ namespace DFC.App.RelatedCareers.Controllers
         private const string PutActionName = nameof(Put);
         private const string DeleteActionName = nameof(Delete);
 
-        private readonly ILogger<SegmentController> logger;
+        private readonly ILogService logService;
         private readonly IRelatedCareersSegmentService relatedCareersSegmentService;
         private readonly AutoMapper.IMapper mapper;
 
-        public SegmentController(ILogger<SegmentController> logger, IRelatedCareersSegmentService relatedCareersSegmentService, AutoMapper.IMapper mapper)
+        public SegmentController(ILogService logService, IRelatedCareersSegmentService relatedCareersSegmentService, AutoMapper.IMapper mapper)
         {
-            this.logger = logger;
+            this.logService = logService;
             this.relatedCareersSegmentService = relatedCareersSegmentService;
             this.mapper = mapper;
         }
@@ -41,7 +41,7 @@ namespace DFC.App.RelatedCareers.Controllers
         [Route("segment")]
         public async Task<IActionResult> Index()
         {
-            logger.LogInformation($"{IndexActionName} has been called");
+            logService.LogInformation($"{IndexActionName} has been called");
 
             var viewModel = new IndexViewModel();
             var relatedCareersSegmentModels = await relatedCareersSegmentService.GetAllAsync().ConfigureAwait(false);
@@ -51,11 +51,11 @@ namespace DFC.App.RelatedCareers.Controllers
                 viewModel.Documents = (from a in relatedCareersSegmentModels.OrderBy(o => o.CanonicalName)
                                        select mapper.Map<IndexDocumentViewModel>(a)).ToList();
 
-                logger.LogInformation($"{IndexActionName} has succeeded");
+                logService.LogInformation($"{IndexActionName} has succeeded");
             }
             else
             {
-                logger.LogWarning($"{IndexActionName} has returned with no results");
+                logService.LogWarning($"{IndexActionName} has returned with no results");
             }
 
             return View(viewModel);
@@ -65,7 +65,7 @@ namespace DFC.App.RelatedCareers.Controllers
         [Route("segment/{article}")]
         public async Task<IActionResult> Document(string article)
         {
-            logger.LogInformation($"{DocumentActionName} has been called with: {article}");
+            logService.LogInformation($"{DocumentActionName} has been called with: {article}");
 
             var relatedCareersSegmentModel = await relatedCareersSegmentService.GetByNameAsync(article).ConfigureAwait(false);
             if (relatedCareersSegmentModel != null)
@@ -74,12 +74,12 @@ namespace DFC.App.RelatedCareers.Controllers
 
                 viewModel.RoutePrefix = SegmentRoutePrefix;
 
-                logger.LogInformation($"{DocumentActionName} has succeeded for: {article}");
+                logService.LogInformation($"{DocumentActionName} has succeeded for: {article}");
 
                 return View(viewModel);
             }
 
-            logger.LogWarning($"{DocumentActionName} has returned no content for: {article}");
+            logService.LogWarning($"{DocumentActionName} has returned no content for: {article}");
 
             return NoContent();
         }
@@ -88,7 +88,7 @@ namespace DFC.App.RelatedCareers.Controllers
         [Route("segment/{documentId}/contents")]
         public async Task<IActionResult> Body(Guid documentId)
         {
-            logger.LogInformation($"{BodyActionName} has been called with: {documentId}");
+            logService.LogInformation($"{BodyActionName} has been called with: {documentId}");
 
             var relatedCareersSegmentModel = await relatedCareersSegmentService.GetByIdAsync(documentId).ConfigureAwait(false);
             if (relatedCareersSegmentModel != null)
@@ -97,14 +97,14 @@ namespace DFC.App.RelatedCareers.Controllers
 
                 viewModel.RoutePrefix = JobProfileRoutePrefix;
 
-                logger.LogInformation($"{BodyActionName} has succeeded for: {documentId}");
+                logService.LogInformation($"{BodyActionName} has succeeded for: {documentId}");
 
                 var apiModel = mapper.Map<List<RelatedCareerApiModel>>(relatedCareersSegmentModel.Data?.RelatedCareers);
 
                 return this.NegotiateContentResult(viewModel, apiModel);
             }
 
-            logger.LogWarning($"{BodyActionName} has returned no content for: {documentId}");
+            logService.LogWarning($"{BodyActionName} has returned no content for: {documentId}");
 
             return NoContent();
         }
@@ -113,7 +113,7 @@ namespace DFC.App.RelatedCareers.Controllers
         [Route("segment")]
         public async Task<IActionResult> Post([FromBody]RelatedCareersSegmentModel relatedCareersSegmentModel)
         {
-            logger.LogInformation($"{PostActionName} has been called");
+            logService.LogInformation($"{PostActionName} has been called");
 
             if (relatedCareersSegmentModel == null)
             {
@@ -133,7 +133,7 @@ namespace DFC.App.RelatedCareers.Controllers
 
             var response = await relatedCareersSegmentService.UpsertAsync(relatedCareersSegmentModel).ConfigureAwait(false);
 
-            logger.LogInformation($"{PostActionName} has upserted content for: {relatedCareersSegmentModel.CanonicalName}");
+            logService.LogInformation($"{PostActionName} has upserted content for: {relatedCareersSegmentModel.CanonicalName}");
 
             return new StatusCodeResult((int)response);
         }
@@ -142,7 +142,7 @@ namespace DFC.App.RelatedCareers.Controllers
         [Route("segment")]
         public async Task<IActionResult> Put([FromBody]RelatedCareersSegmentModel relatedCareersSegmentModel)
         {
-            logger.LogInformation($"{PutActionName} has been called");
+            logService.LogInformation($"{PutActionName} has been called");
 
             if (relatedCareersSegmentModel == null)
             {
@@ -170,7 +170,7 @@ namespace DFC.App.RelatedCareers.Controllers
 
             var response = await relatedCareersSegmentService.UpsertAsync(relatedCareersSegmentModel).ConfigureAwait(false);
 
-            logger.LogInformation($"{PutActionName} has upserted content for: {relatedCareersSegmentModel.CanonicalName}");
+            logService.LogInformation($"{PutActionName} has upserted content for: {relatedCareersSegmentModel.CanonicalName}");
 
             return new StatusCodeResult((int)response);
         }
@@ -179,17 +179,17 @@ namespace DFC.App.RelatedCareers.Controllers
         [Route("segment/{documentId}")]
         public async Task<IActionResult> Delete(Guid documentId)
         {
-            logger.LogInformation($"{DeleteActionName} has been called");
+            logService.LogInformation($"{DeleteActionName} has been called");
 
             var isDeleted = await relatedCareersSegmentService.DeleteAsync(documentId).ConfigureAwait(false);
             if (isDeleted)
             {
-                logger.LogInformation($"{DeleteActionName} has deleted content for document Id: {documentId}");
+                logService.LogInformation($"{DeleteActionName} has deleted content for document Id: {documentId}");
                 return Ok();
             }
             else
             {
-                logger.LogWarning($"{DeleteActionName} has returned no content for: {documentId}");
+                logService.LogWarning($"{DeleteActionName} has returned no content for: {documentId}");
                 return NotFound();
             }
         }

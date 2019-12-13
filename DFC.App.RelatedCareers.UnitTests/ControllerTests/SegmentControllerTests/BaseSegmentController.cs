@@ -1,9 +1,9 @@
 ﻿using DFC.App.RelatedCareers.Controllers;
 using DFC.App.RelatedCareers.SegmentService;
+using DFC.Logger.AppInsights.Contracts;
 using FakeItEasy;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Microsoft.Net.Http.Headers;
 using System.Collections.Generic;
 using System.Net.Mime;
@@ -14,7 +14,7 @@ namespace DFC.App.RelatedCareers.UnitTests.ControllerTests.SegmentControllerTest
     {
         public BaseSegmentController()
         {
-            FakeLogger = A.Fake<ILogger<SegmentController>>();
+            FakeLogger = A.Fake<ILogService>();
             FakeRelatedCareersSegmentService = A.Fake<IRelatedCareersSegmentService>();
             FakeMapper = A.Fake<AutoMapper.IMapper>();
         }
@@ -35,7 +35,7 @@ namespace DFC.App.RelatedCareers.UnitTests.ControllerTests.SegmentControllerTest
             new object[] { MediaTypeNames.Application.Json },
         };
 
-        protected ILogger<SegmentController> FakeLogger { get; }
+        protected ILogService FakeLogger { get; }
 
         protected IRelatedCareersSegmentService FakeRelatedCareersSegmentService { get; }
 

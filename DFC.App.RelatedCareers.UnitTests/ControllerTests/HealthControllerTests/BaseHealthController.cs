@@ -1,9 +1,9 @@
 ﻿using DFC.App.RelatedCareers.Controllers;
 using DFC.App.RelatedCareers.SegmentService;
+using DFC.Logger.AppInsights.Contracts;
 using FakeItEasy;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Microsoft.Net.Http.Headers;
 
 namespace DFC.App.RelatedCareers.UnitTests.ControllerTests.HealthControllerTests
@@ -14,11 +14,11 @@ namespace DFC.App.RelatedCareers.UnitTests.ControllerTests.HealthControllerTests
 
         public BaseHealthController()
         {
-            FakeLogger = A.Fake<ILogger<HealthController>>();
+            FakeLogger = A.Fake<ILogService>();
             FakeRelatedCareersSegmentService = A.Fake<IRelatedCareersSegmentService>();
         }
 
-        protected ILogger<HealthController> FakeLogger { get; }
+        protected ILogService FakeLogger { get; }
 
         protected HealthController BuildHealthController(string mediaTypeName)
         {
