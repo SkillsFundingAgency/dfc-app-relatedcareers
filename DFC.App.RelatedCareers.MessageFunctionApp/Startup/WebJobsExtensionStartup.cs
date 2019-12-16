@@ -33,11 +33,11 @@ namespace DFC.App.RelatedCareers.MessageFunctionApp.Startup
             builder.AddDependencyInjection();
             builder?.Services.AddAutoMapper(typeof(WebJobsExtensionStartup).Assembly);
             builder.Services.AddSingleton(segmentClientOptions);
-            builder.Services.AddScoped<HttpClient>(sp => new HttpClient());
+            builder.Services.AddScoped(sp => new HttpClient());
             builder?.Services.AddScoped<IHttpClientService, HttpClientService>();
             builder?.Services.AddScoped<IMessageProcessor, MessageProcessor>();
             builder?.Services.AddScoped<IMappingService, MappingService>();
-            builder?.Services.AddSingleton<IMessagePropertiesService, MessagePropertiesService>();
+            builder?.Services.AddScoped<IMessagePropertiesService, MessagePropertiesService>();
             builder?.Services.AddDFCLogging(configuration["APPINSIGHTS_INSTRUMENTATIONKEY"]);
             builder?.Services.AddScoped<ICorrelationIdProvider, InMemoryCorrelationIdProvider>();
         }
