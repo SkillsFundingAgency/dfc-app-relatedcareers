@@ -1,7 +1,12 @@
-﻿<div class="job-profile-related">
+﻿@{ 
+    var relatedCareers = Model.Data.RelatedCareers as IEnumerable<RelatedCareerDataViewModel>;
+    relatedCareers = relatedCareers.Take(5);
+}
+
+<div class="job-profile-related">
     <h3 class="govuk-heading-m">Related careers</h3>
     <ul class="list list-big">
-        @foreach (var relatedCareerDataViewModel in Model.Data.RelatedCareers)
+        @foreach (var relatedCareerDataViewModel in relatedCareers)
         {
             <li><a href="/@Model.RoutePrefix@relatedCareerDataViewModel.ProfileLink">@relatedCareerDataViewModel.Title</a></li>
         }
