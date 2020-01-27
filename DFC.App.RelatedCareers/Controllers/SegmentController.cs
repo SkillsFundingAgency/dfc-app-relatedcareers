@@ -1,5 +1,6 @@
 ﻿using DFC.App.RelatedCareers.ApiModels;
 using DFC.App.RelatedCareers.Data.Models;
+using DFC.App.RelatedCareers.Data.ServiceBusModels;
 using DFC.App.RelatedCareers.Extensions;
 using DFC.App.RelatedCareers.SegmentService;
 using DFC.App.RelatedCareers.ViewModels;
@@ -24,16 +25,19 @@ namespace DFC.App.RelatedCareers.Controllers
         private const string PostActionName = nameof(Post);
         private const string PutActionName = nameof(Put);
         private const string DeleteActionName = nameof(Delete);
+        private const string RefreshDocumentsActionName = nameof(RefreshDocuments);
 
         private readonly ILogService logService;
         private readonly IRelatedCareersSegmentService relatedCareersSegmentService;
         private readonly AutoMapper.IMapper mapper;
+        private readonly IJobProfileSegmentRefreshService<RefreshJobProfileSegmentServiceBusModel> refreshService;
 
-        public SegmentController(ILogService logService, IRelatedCareersSegmentService relatedCareersSegmentService, AutoMapper.IMapper mapper)
+        public SegmentController(ILogService logService, IRelatedCareersSegmentService relatedCareersSegmentService, AutoMapper.IMapper mapper, IJobProfileSegmentRefreshService<RefreshJobProfileSegmentServiceBusModel> refreshService)
         {
             this.logService = logService;
             this.relatedCareersSegmentService = relatedCareersSegmentService;
             this.mapper = mapper;
+            this.refreshService = refreshService;
         }
 
         [HttpGet]
@@ -80,6 +84,30 @@ namespace DFC.App.RelatedCareers.Controllers
 
             logService.LogWarning($"{DocumentActionName} has returned no content for: {article}");
 
+            return NoContent();
+        }
+
+        [HttpPost]
+        [Route("{controller}/refreshDocuments")]
+        public async Task<IActionResult> RefreshDocuments()
+        {
+            logService.LogInformation($"{RefreshDocumentsActionName} has been called");
+
+            var segmentModels = await relatedCareersSegmentService.GetAllAsync().ConfigureAwait(false);
+            if (segmentModels != null)
+            {
+                var result = segmentModels
+                    .OrderBy(x => x.CanonicalName)
+                    .Select(x => mapper.Map<RefreshJobProfileSegmentServiceBusModel>(x))
+                    .ToList();
+
+                await refreshService.SendMessageListAsync(result).ConfigureAwait(false);
+
+                logService.LogInformation($"{RefreshDocumentsActionName} has succeeded");
+                return Json(result);
+            }
+
+            logService.LogWarning($"{RefreshDocumentsActionName} has returned with no results");
             return NoContent();
         }
 
