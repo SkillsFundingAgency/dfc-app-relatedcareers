@@ -1,8 +1,8 @@
 ﻿using DFC.App.RelatedCareers.Extensions;
 using DFC.App.RelatedCareers.SegmentService;
 using DFC.App.RelatedCareers.ViewModels;
+using DFC.Logger.AppInsights.Contracts;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -14,24 +14,23 @@ namespace DFC.App.RelatedCareers.Controllers
     {
         private const string SuccessMessage = "Document store is available";
 
-        private readonly ILogger<HealthController> logger;
+        private readonly ILogService logService;
         private readonly IRelatedCareersSegmentService relatedCareersSegmentService;
 
         private readonly string resourceName;
 
-        public HealthController(ILogger<HealthController> logger, IRelatedCareersSegmentService relatedCareersSegmentService)
+        public HealthController(ILogService logService, IRelatedCareersSegmentService relatedCareersSegmentService)
         {
-            this.logger = logger;
+            this.logService = logService;
             this.relatedCareersSegmentService = relatedCareersSegmentService;
 
             resourceName = typeof(Program).Namespace;
         }
 
         [HttpGet]
-        [Route("health/ping")]
         public IActionResult Ping()
         {
-            logger.LogInformation($"{nameof(Ping)} has been called");
+            logService.LogInformation($"{nameof(Ping)} has been called");
 
             return Ok();
         }
@@ -40,25 +39,25 @@ namespace DFC.App.RelatedCareers.Controllers
         [Route("health")]
         public async Task<IActionResult> Health()
         {
-            logger.LogInformation($"{nameof(Health)} has been called");
+            logService.LogInformation($"{nameof(Health)} has been called");
 
             try
             {
                 var isHealthy = await relatedCareersSegmentService.PingAsync().ConfigureAwait(false);
                 if (isHealthy)
                 {
-                    logger.LogInformation($"{nameof(Health)} responded with: {resourceName} - {SuccessMessage}");
+                    logService.LogInformation($"{nameof(Health)} responded with: {resourceName} - {SuccessMessage}");
 
                     var viewModel = CreateHealthViewModel();
 
                     return this.NegotiateContentResult(viewModel);
                 }
 
-                logger.LogError($"{nameof(Health)}: Ping to {resourceName} has failed");
+                logService.LogError($"{nameof(Health)}: Ping to {resourceName} has failed");
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, $"{nameof(Health)}: {resourceName} exception: {ex.Message}");
+                logService.LogError($"{nameof(Health)}: {resourceName} exception: {ex.Message}");
             }
 
             return StatusCode((int)HttpStatusCode.ServiceUnavailable);
