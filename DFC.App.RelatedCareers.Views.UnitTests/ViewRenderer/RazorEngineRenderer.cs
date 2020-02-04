@@ -21,6 +21,7 @@ namespace DFC.App.RelatedCareers.Views.UnitTests.ViewRenderer
                 TemplateManager = CreateTemplateManager(),
                 BaseTemplateType = typeof(HtmlSupportTemplateBase<>),
             };
+            razorConfig.Namespaces.Add("DFC.App.RelatedCareers.ViewModels");
 
             var razorEngine = RazorEngineService.Create(razorConfig);
 
