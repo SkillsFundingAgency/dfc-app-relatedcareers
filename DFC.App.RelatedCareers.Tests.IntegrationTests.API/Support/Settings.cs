@@ -8,7 +8,7 @@ namespace DFC.App.RelatedCareers.Tests.IntegrationTests.API.Support
 
         public class ServiceBusConfig
         {
-            public static string Endpoint { get; set; }
+            public static string ConnectionString { get; set; }
         }
 
         public class APIConfig

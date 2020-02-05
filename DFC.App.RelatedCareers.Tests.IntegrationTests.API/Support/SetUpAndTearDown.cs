@@ -17,11 +17,10 @@ namespace DFC.App.RelatedCareers.Tests.IntegrationTests.API.Support
         public async Task OneTimeSetUp()
         {
             CommonAction.InitialiseAppSettings();
-            Topic = new Topic(Settings.ServiceBusConfig.Endpoint);
+            Topic = new Topic(Settings.ServiceBusConfig.ConnectionString);
             JobProfile = CommonAction.GenerateJobProfileContentType();
-            
-            //Do stuff
-
+            RelatedCareersData relatedCareersData = CommonAction.GenerateRelatedCareersDataSection();
+            JobProfile.RelatedCareersData = new List<RelatedCareersData>() { relatedCareersData };
             byte[] jobProfileMessageBody =  CommonAction.ConvertObjectToByteArray(JobProfile);
             Message jobProfileMessage = CommonAction.CreateServiceBusMessage(JobProfile.JobProfileId, jobProfileMessageBody, ContentType.JSON, ActionType.Published, CType.JobProfile);
             await CommonAction.SendMessage(Topic, jobProfileMessage);

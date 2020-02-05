@@ -195,13 +195,7 @@
     ],
     "ApprenticeshipStandards": []
   },
-  "RelatedCareersData": [
-    {
-      "Id": "d1964401-fab5-45ee-81cc-e21174f2ff92",
-      "Title": "Steeplejack",
-      "ProfileLink": "/steeplejack"
-    }
-  ],
+  "RelatedCareersData": [],
   "SocSkillsMatrixData": [
     {
       "Id": "7b248065-1351-436b-8652-691204474503",
