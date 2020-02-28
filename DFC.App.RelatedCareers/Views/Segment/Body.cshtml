@@ -1,6 +1,6 @@
 ﻿@{ 
     var relatedCareers = Model.Data.RelatedCareers as IEnumerable<RelatedCareerDataViewModel>;
-    relatedCareers = relatedCareers.Take(5);
+    relatedCareers = relatedCareers?.Take(5);
 }
 
 <div class="job-profile-related">
