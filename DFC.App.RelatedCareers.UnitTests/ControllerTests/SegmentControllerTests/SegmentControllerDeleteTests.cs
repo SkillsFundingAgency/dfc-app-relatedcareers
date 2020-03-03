@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Net;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace DFC.App.RelatedCareers.UnitTests.ControllerTests.SegmentControllerTests
@@ -11,12 +12,11 @@ namespace DFC.App.RelatedCareers.UnitTests.ControllerTests.SegmentControllerTest
     {
         [Theory]
         [MemberData(nameof(JsonMediaTypes))]
-        public async void SegmentControllerDeleteReturnsSuccess(string mediaTypeName)
+        public async Task SegmentControllerDeleteReturnsSuccess(string mediaTypeName)
         {
             // Arrange
             const bool documentExists = true;
             var controller = BuildSegmentController(mediaTypeName);
-
             A.CallTo(() => FakeRelatedCareersSegmentService.DeleteAsync(A<Guid>.Ignored)).Returns(documentExists);
 
             // Act
@@ -32,12 +32,11 @@ namespace DFC.App.RelatedCareers.UnitTests.ControllerTests.SegmentControllerTest
 
         [Theory]
         [MemberData(nameof(JsonMediaTypes))]
-        public async void SegmentControllerDeleteReturnsNotFound(string mediaTypeName)
+        public async Task SegmentControllerDeleteReturnsNotFound(string mediaTypeName)
         {
             // Arrange
             const bool documentExists = false;
             var controller = BuildSegmentController(mediaTypeName);
-
             A.CallTo(() => FakeRelatedCareersSegmentService.DeleteAsync(A<Guid>.Ignored)).Returns(documentExists);
 
             // Act

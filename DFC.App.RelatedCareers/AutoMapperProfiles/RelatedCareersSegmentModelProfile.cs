@@ -9,6 +9,8 @@ namespace DFC.App.RelatedCareers.AutoMapperProfiles
     [ExcludeFromCodeCoverage]
     public class RelatedCareersSegmentModelProfile : Profile
     {
+        public const string SegmentRoutePrefix = "segment";
+
         public RelatedCareersSegmentModelProfile()
         {
             CreateMap<RelatedCareerDataModel, RelatedCareerDataViewModel>();
@@ -16,7 +18,7 @@ namespace DFC.App.RelatedCareers.AutoMapperProfiles
             CreateMap<RelatedCareersSegmentModel, IndexDocumentViewModel>();
 
             CreateMap<RelatedCareersSegmentModel, DocumentViewModel>()
-                .ForMember(d => d.RoutePrefix, s => s.Ignore());
+                .ForMember(d => d.RoutePrefix, s => s.MapFrom(a => SegmentRoutePrefix));
 
             CreateMap<RelatedCareersSegmentModel, RefreshJobProfileSegmentServiceBusModel>()
                 .ForMember(d => d.JobProfileId, s => s.MapFrom(a => a.DocumentId))

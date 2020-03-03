@@ -16,13 +16,13 @@ namespace DFC.App.RelatedCareers.Views.UnitTests.Tests
         public void ContainsContentFromModel()
         {
             // Arrange
-            var expectedRelatedCareerMarkup = $"<li><a href=\"/{SegmentController.SegmentRoutePrefix}{JobCanonicalName}\">{JobTitle}</a></li>";
+            var expectedRelatedCareerMarkup = $"<li><a href=\"/segment{JobCanonicalName}\">{JobTitle}</a></li>";
 
             var model = new DocumentViewModel
             {
                 DocumentId = Guid.NewGuid(),
                 CanonicalName = "nurse",
-                RoutePrefix = SegmentController.SegmentRoutePrefix,
+                RoutePrefix = "segment",
                 Data = new DocumentDataViewModel
                 {
                     RelatedCareers = new List<RelatedCareerDataViewModel>
