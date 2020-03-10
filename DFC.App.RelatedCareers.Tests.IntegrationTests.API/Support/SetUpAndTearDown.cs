@@ -1,36 +1,53 @@
-﻿using DFC.App.RelatedCareers.Tests.Common.AzureServiceBusSupport;
-using DFC.App.RelatedCareers.Tests.IntegrationTests.API.Model;
+﻿using DFC.App.RelatedCareers.Tests.IntegrationTests.API.Model.ContentType.JobProfile;
+using DFC.App.RelatedCareers.Tests.IntegrationTests.API.Model.Support;
+using DFC.App.RelatedCareers.Tests.IntegrationTests.API.Support.API;
+using DFC.App.RelatedCareers.Tests.IntegrationTests.API.Support.API.RestFactory;
+using DFC.App.RelatedCareers.Tests.IntegrationTests.API.Support.AzureServiceBus;
+using DFC.App.RelatedCareers.Tests.IntegrationTests.API.Support.AzureServiceBus.ServiceBusFactory;
+using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
-using static DFC.App.RelatedCareers.Tests.IntegrationTests.API.Support.EnumLibrary;
 
 namespace DFC.App.RelatedCareers.Tests.IntegrationTests.API.Support
 {
     public class SetUpAndTearDown
     {
-        internal JobProfileContentType JobProfile { get; private set; }
-        internal CommonAction CommonAction { get; } = new CommonAction();
-        public Topic Topic { get; private set; }
+        protected CommonAction CommonAction;
+        protected AppSettings AppSettings;
+        protected JobProfileContentType JobProfile;
+        protected ServiceBusSupport ServiceBus;
+        protected RelatedCareersAPI API;
 
         [OneTimeSetUp]
         public async Task OneTimeSetUp()
         {
-            CommonAction.InitialiseAppSettings();
-            Topic = new Topic(Settings.ServiceBusConfig.ConnectionString);
-            JobProfile = CommonAction.GenerateJobProfileContentType();
-            RelatedCareersData relatedCareersData = CommonAction.GenerateRelatedCareersDataSection();
-            JobProfile.RelatedCareersData = new List<RelatedCareersData>() { relatedCareersData };
-            byte[] jobProfileMessageBody =  CommonAction.ConvertObjectToByteArray(JobProfile);
-            Message jobProfileMessage = CommonAction.CreateServiceBusMessage(JobProfile.JobProfileId, jobProfileMessageBody, ContentType.JSON, ActionType.Published, CType.JobProfile);
-            await CommonAction.SendMessage(Topic, jobProfileMessage);
-            await Task.Delay(5000);
+            IConfigurationRoot configuration = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", optional: true, reloadOnChange: true).Build();
+            this.AppSettings = configuration.Get<AppSettings>();
+            this.CommonAction = new CommonAction();
+            this.API = new RelatedCareersAPI(new RestClientFactory(), new RestRequestFactory(), this.AppSettings);
+            var canonicalName = this.CommonAction.RandomString(10).ToUpperInvariant();
+            this.JobProfile = this.CommonAction.GetResource<JobProfileContentType>("JobProfileContentType");
+            this.JobProfile.JobProfileId = Guid.NewGuid().ToString();
+            this.JobProfile.UrlName = canonicalName;
+            this.JobProfile.CanonicalName = canonicalName;
+            JobProfile.RelatedCareersData = new List<RelatedCareersData>() { CommonAction.GenerateRelatedCareersDataSection() };
+            var jobProfileMessageBody = this.CommonAction.ConvertObjectToByteArray(this.JobProfile);
+            this.ServiceBus = new ServiceBusSupport(new TopicClientFactory(), this.AppSettings);
+            var message = new MessageFactory().Create(this.JobProfile.JobProfileId, jobProfileMessageBody, "Published", "JobProfile");
+            await this.ServiceBus.SendMessage(message).ConfigureAwait(false);
+            await Task.Delay(10000).ConfigureAwait(false);
         }
 
         [OneTimeTearDown]
         public async Task OneTimeTearDown()
         {
-            await CommonAction.DeleteJobProfile(Topic, JobProfile);
+            var jobProfileDelete = this.CommonAction.GetResource<JobProfileContentType>("JobProfileDelete");
+            var messageBody = this.CommonAction.ConvertObjectToByteArray(jobProfileDelete);
+            var message = new MessageFactory().Create(this.JobProfile.JobProfileId, messageBody, "Deleted", "JobProfile");
+            await this.ServiceBus.SendMessage(message).ConfigureAwait(false);
         }
     }
 }
