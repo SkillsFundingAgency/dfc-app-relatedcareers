@@ -10,13 +10,13 @@ namespace DFC.App.RelatedCareers.UnitTests.ControllerTests.HealthControllerTests
 {
     public class BaseHealthController
     {
-        protected IRelatedCareersSegmentService FakeRelatedCareersSegmentService;
-
         public BaseHealthController()
         {
             FakeLogger = A.Fake<ILogService>();
             FakeRelatedCareersSegmentService = A.Fake<IRelatedCareersSegmentService>();
         }
+
+        protected IRelatedCareersSegmentService FakeRelatedCareersSegmentService { get; }
 
         protected ILogService FakeLogger { get; }
 
@@ -28,7 +28,7 @@ namespace DFC.App.RelatedCareers.UnitTests.ControllerTests.HealthControllerTests
 
             return new HealthController(FakeLogger, FakeRelatedCareersSegmentService)
             {
-                ControllerContext = new ControllerContext()
+                ControllerContext = new ControllerContext
                 {
                     HttpContext = httpContext,
                 },

@@ -3,6 +3,7 @@ using FakeItEasy;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Net;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace DFC.App.RelatedCareers.UnitTests.ControllerTests.SegmentControllerTests
@@ -12,7 +13,7 @@ namespace DFC.App.RelatedCareers.UnitTests.ControllerTests.SegmentControllerTest
     {
         [Theory]
         [MemberData(nameof(JsonMediaTypes))]
-        public async void SegmentControllerUpsertReturnsSuccessForCreate(string mediaTypeName)
+        public async Task SegmentControllerUpsertReturnsSuccessForCreate(string mediaTypeName)
         {
             // Arrange
             var relatedCareersSegmentModel = A.Fake<RelatedCareersSegmentModel>();
@@ -35,7 +36,7 @@ namespace DFC.App.RelatedCareers.UnitTests.ControllerTests.SegmentControllerTest
 
         [Theory]
         [MemberData(nameof(JsonMediaTypes))]
-        public async void SegmentControllerUpsertReturnsSuccessForUpdate(string mediaTypeName)
+        public async Task SegmentControllerUpsertReturnsSuccessForUpdate(string mediaTypeName)
         {
             // Arrange
             var existingModel = A.Fake<RelatedCareersSegmentModel>();
@@ -63,7 +64,7 @@ namespace DFC.App.RelatedCareers.UnitTests.ControllerTests.SegmentControllerTest
 
         [Theory]
         [MemberData(nameof(JsonMediaTypes))]
-        public async void SegmentControllerUpsertReturnsBadResultWhenModelIsNull(string mediaTypeName)
+        public async Task SegmentControllerUpsertReturnsBadResultWhenModelIsNull(string mediaTypeName)
         {
             // Arrange
             var controller = BuildSegmentController(mediaTypeName);
@@ -80,7 +81,7 @@ namespace DFC.App.RelatedCareers.UnitTests.ControllerTests.SegmentControllerTest
 
         [Theory]
         [MemberData(nameof(JsonMediaTypes))]
-        public async void SegmentControllerUpsertReturnsBadResultWhenModelIsInvalid(string mediaTypeName)
+        public async Task SegmentControllerUpsertReturnsBadResultWhenModelIsInvalid(string mediaTypeName)
         {
             // Arrange
             var relatedCareersSegmentModel = new RelatedCareersSegmentModel();

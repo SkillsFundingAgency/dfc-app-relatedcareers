@@ -16,7 +16,6 @@ namespace DFC.App.RelatedCareers.Controllers
 {
     public class SegmentController : Controller
     {
-        public const string SegmentRoutePrefix = "segment";
         public const string JobProfileRoutePrefix = "job-profiles";
 
         private const string IndexActionName = nameof(Index);
@@ -74,16 +73,11 @@ namespace DFC.App.RelatedCareers.Controllers
             if (relatedCareersSegmentModel != null)
             {
                 var viewModel = mapper.Map<DocumentViewModel>(relatedCareersSegmentModel);
-
-                viewModel.RoutePrefix = SegmentRoutePrefix;
-
                 logService.LogInformation($"{DocumentActionName} has succeeded for: {article}");
-
                 return View(viewModel);
             }
 
             logService.LogWarning($"{DocumentActionName} has returned no content for: {article}");
-
             return NoContent();
         }
 

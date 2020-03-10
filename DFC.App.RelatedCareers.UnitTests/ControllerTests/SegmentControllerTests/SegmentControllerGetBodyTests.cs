@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Net;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace DFC.App.RelatedCareers.UnitTests.ControllerTests.SegmentControllerTests
@@ -18,7 +19,7 @@ namespace DFC.App.RelatedCareers.UnitTests.ControllerTests.SegmentControllerTest
 
         [Theory]
         [MemberData(nameof(HtmlMediaTypes))]
-        public async void SegmentControllerGetBodyHtmlReturnsSuccess(string mediaTypeName)
+        public async Task SegmentControllerGetBodyHtmlReturnsSuccess(string mediaTypeName)
         {
             // Arrange
             var expectedResult = A.Fake<RelatedCareersSegmentModel>();
@@ -28,7 +29,8 @@ namespace DFC.App.RelatedCareers.UnitTests.ControllerTests.SegmentControllerTest
             {
                 DocumentId = Guid.NewGuid(),
                 CanonicalName = "nurse",
-                RoutePrefix = SegmentController.SegmentRoutePrefix,
+                RoutePrefix = "segment",
+                SequenceNumber = 123,
                 Data = new DocumentDataViewModel
                 {
                     LastReviewed = DateTime.UtcNow,
@@ -62,7 +64,7 @@ namespace DFC.App.RelatedCareers.UnitTests.ControllerTests.SegmentControllerTest
 
         [Theory]
         [MemberData(nameof(HtmlMediaTypes))]
-        public async void SegmentControllerGetBodyHtmlReturnsNoContentWhenNoData(string mediaTypeName)
+        public async Task SegmentControllerGetBodyHtmlReturnsNoContentWhenNoData(string mediaTypeName)
         {
             // Arrange
             var controller = BuildSegmentController(mediaTypeName);
@@ -81,7 +83,7 @@ namespace DFC.App.RelatedCareers.UnitTests.ControllerTests.SegmentControllerTest
 
         [Theory]
         [MemberData(nameof(JsonMediaTypes))]
-        public async void SegmentControllerGetBodyJsonReturnsSuccess(string mediaTypeName)
+        public async Task SegmentControllerGetBodyJsonReturnsSuccess(string mediaTypeName)
         {
             // Arrange
             var relatedCareersSegmentModel = new RelatedCareersSegmentModel { CanonicalName = "SomeCanonicalName" };
@@ -114,7 +116,7 @@ namespace DFC.App.RelatedCareers.UnitTests.ControllerTests.SegmentControllerTest
 
         [Theory]
         [MemberData(nameof(InvalidMediaTypes))]
-        public async void SegmentControllerGetBodyPlainMediaTypeReturnsNotAcceptable(string mediaTypeName)
+        public async Task SegmentControllerGetBodyPlainMediaTypeReturnsNotAcceptable(string mediaTypeName)
         {
             // Arrange
             var expectedResult = A.Fake<RelatedCareersSegmentModel>();

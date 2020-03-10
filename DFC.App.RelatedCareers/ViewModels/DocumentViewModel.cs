@@ -13,6 +13,9 @@ namespace DFC.App.RelatedCareers.ViewModels
 
         public string RoutePrefix { get; set; }
 
+        [Display(Name = "Sequence Number")]
+        public long SequenceNumber { get; set; }
+
         public DocumentDataViewModel Data { get; set; }
     }
 }
