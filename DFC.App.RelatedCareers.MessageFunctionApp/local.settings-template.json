@@ -4,7 +4,7 @@
     "AzureWebJobsStorage": "UseDevelopmentStorage=true",
     "FUNCTIONS_WORKER_RUNTIME": "dotnet",
     "service-bus-connection-string": "[Placeholder]",
-    "cms-messages-topic": "cms-messages-kh",
+    "cms-messages-topic": "cms-messages",
     "cms-messages-subscription": "job-profile-relatedcareers",
     "APPINSIGHTS_INSTRUMENTATIONKEY": "[instrumentation key]"
   },
