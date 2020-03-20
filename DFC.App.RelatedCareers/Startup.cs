@@ -88,7 +88,7 @@ namespace DFC.App.RelatedCareers
             services.AddAutoMapper(typeof(Startup).Assembly);
             services.AddDFCLogging(configuration["ApplicationInsights:InstrumentationKey"]);
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+            services.AddMvc().AddNewtonsoftJson().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
         }
     }
 }
