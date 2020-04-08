@@ -45,6 +45,7 @@ namespace DFC.App.RelatedCareers.Tests.IntegrationTests.API.Support
         public async Task OneTimeTearDown()
         {
             var jobProfileDelete = this.CommonAction.GetResource<JobProfileContentType>("JobProfileDelete");
+            jobProfileDelete.JobProfileId = this.JobProfile.JobProfileId;
             var messageBody = this.CommonAction.ConvertObjectToByteArray(jobProfileDelete);
             var message = new MessageFactory().Create(this.JobProfile.JobProfileId, messageBody, "Deleted", "JobProfile");
             await this.ServiceBus.SendMessage(message).ConfigureAwait(false);

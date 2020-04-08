@@ -1,6 +1,6 @@
 {
-  "JobProfileId": "28e2572b-489d-420b-aa55-d5a3d36ad85e",
-  "Title": "James Test Job",
+  "JobProfileId": "[AUTOMATICALLY GENERATED]",
+  "Title": "Automatically generated record",
   "DynamicTitlePrefix": "As Defined",
   "AlternativeTitle": "Slater, flat roofer",
   "Overview": "Roofers re-slate and tile roofs, fit skylight windows and replace lead sheeting and cladding.",
@@ -230,5 +230,5 @@
   "LastModified": "2020-01-28T14:32:16.503Z",
   "CanonicalName": "roofer",
   "WidgetContentTitle": "Widget content title",
-  "IncludeInSitemap": true
+  "IncludeInSitemap": false
 }
