@@ -105,30 +105,6 @@ namespace DFC.App.RelatedCareers.Controllers
             return NoContent();
         }
 
-        [HttpPost]
-        [Route("{controller}/refreshDocuments")]
-        public async Task<IActionResult> RefreshDocuments()
-        {
-            logService.LogInformation($"{RefreshDocumentsActionName} has been called");
-
-            var segmentModels = await relatedCareersSegmentService.GetAllAsync().ConfigureAwait(false);
-            if (segmentModels != null)
-            {
-                var result = segmentModels
-                    .OrderBy(x => x.CanonicalName)
-                    .Select(x => mapper.Map<RefreshJobProfileSegmentServiceBusModel>(x))
-                    .ToList();
-
-                await refreshService.SendMessageListAsync(result).ConfigureAwait(false);
-
-                logService.LogInformation($"{RefreshDocumentsActionName} has succeeded");
-                return Json(result);
-            }
-
-            logService.LogWarning($"{RefreshDocumentsActionName} has returned with no results");
-            return NoContent();
-        }
-
         [HttpGet]
         [Route("segment/{documentId}/contents")]
         public async Task<IActionResult> Body(Guid documentId)
