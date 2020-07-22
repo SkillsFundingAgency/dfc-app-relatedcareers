@@ -18,6 +18,8 @@ namespace DFC.App.RelatedCareers.UnitTests.ControllerTests.HealthControllerTests
             FakeRelatedCareersSegmentService = A.Fake<IRelatedCareersSegmentService>();
         }
 
+        protected IRelatedCareersSegmentService FakeRelatedCareersSegmentService { get; }
+
         protected ILogService FakeLogger { get; }
 
         protected HealthController BuildHealthController(string mediaTypeName)
@@ -28,7 +30,7 @@ namespace DFC.App.RelatedCareers.UnitTests.ControllerTests.HealthControllerTests
 
             return new HealthController(FakeLogger, FakeRelatedCareersSegmentService)
             {
-                ControllerContext = new ControllerContext()
+                ControllerContext = new ControllerContext
                 {
                     HttpContext = httpContext,
                 },
