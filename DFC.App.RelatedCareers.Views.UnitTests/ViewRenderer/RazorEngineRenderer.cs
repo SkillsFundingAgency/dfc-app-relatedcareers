@@ -23,7 +23,7 @@ namespace DFC.App.RelatedCareers.Views.UnitTests.ViewRenderer
             };
             razorConfig.Namespaces.Add("DFC.App.RelatedCareers.ViewModels");
 
-            var razorEngine = RazorEngineService.Create(razorConfig);
+            using var razorEngine = RazorEngineService.Create(razorConfig);
 
             var dynamicViewBag = new DynamicViewBag(viewBag);
             return razorEngine.RunCompile(viewName, model?.GetType(), model, dynamicViewBag);
