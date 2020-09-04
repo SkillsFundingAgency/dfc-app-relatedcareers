@@ -59,7 +59,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.App.RelatedCareers.Mess
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{10C3BEBB-0D7D-40FE-A2A0-1DB002810023}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.App.RelatedCareers.Tests.IntegrationTests.API", "DFC.App.RelatedCareers.Tests.IntegrationTests.API\DFC.App.RelatedCareers.Tests.IntegrationTests.API.csproj", "{1693B422-7B0D-4EEC-8D68-74CE75059143}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.App.RelatedCareers.Tests.API.IntegrationTests", "DFC.App.RelatedCareers.Tests.API.IntegrationTests\DFC.App.RelatedCareers.Tests.API.IntegrationTests.csproj", "{1693B422-7B0D-4EEC-8D68-74CE75059143}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

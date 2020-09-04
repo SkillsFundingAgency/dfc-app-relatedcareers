@@ -7,6 +7,6 @@ namespace DFC.App.RelatedCareers.Tests.IntegrationTests.API.Support.API
 {
     public interface IRelatedCareersAPI
     {
-        Task<IRestResponse<List<RelatedCareersResponseBody>>> GetById(string id);
+        Task<IRestResponse<List<RelatedCareersResponse>>> GetById(string id);
     }
 }
