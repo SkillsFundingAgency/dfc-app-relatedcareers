@@ -20,7 +20,7 @@ namespace DFC.App.RelatedCareers.Tests.IntegrationTests.API.Support.API
             this.appSettings = appSettings;
         }
 
-        public async Task<IRestResponse<List<RelatedCareersResponseBody>>> GetById(string id)
+        public async Task<IRestResponse<List<RelatedCareersResponse>>> GetById(string id)
         {
             if (string.IsNullOrEmpty(id))
             {
@@ -28,11 +28,9 @@ namespace DFC.App.RelatedCareers.Tests.IntegrationTests.API.Support.API
             }
 
             var restClient = this.restClientFactory.Create(this.appSettings.APIConfig.EndpointBaseUrl);
-            var restRequest = this.restRequestFactory.Create($"{id}/contents");
+            var restRequest = this.restRequestFactory.Create($"/segment/{id}/contents");
             restRequest.AddHeader("Accept", "application/json");
-            restRequest.AddHeader("Ocp-Apim-Subscription-Key", this.appSettings.APIConfig.ApimSubscriptionKey);
-            restRequest.AddHeader("version", this.appSettings.APIConfig.Version);
-            return await Task.Run(() => restClient.Execute<List<RelatedCareersResponseBody>>(restRequest)).ConfigureAwait(false);
+            return await Task.Run(() => restClient.Execute<List<RelatedCareersResponse>>(restRequest)).ConfigureAwait(false);
         }
     }
 }
