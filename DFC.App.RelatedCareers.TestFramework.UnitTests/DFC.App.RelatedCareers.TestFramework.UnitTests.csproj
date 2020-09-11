@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DFC.App.RelatedCareers.Tests.FunctionalTests\DFC.App.RelatedCareers.Tests.FunctionalTests.csproj" />
+    <ProjectReference Include="..\DFC.App.RelatedCareers.FunctionalTests\DFC.App.RelatedCareers.FunctionalTests.csproj" />
   </ItemGroup>
 
 </Project>
