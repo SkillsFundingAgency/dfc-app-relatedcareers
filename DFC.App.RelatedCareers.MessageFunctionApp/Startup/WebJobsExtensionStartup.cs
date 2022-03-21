@@ -33,7 +33,7 @@ namespace DFC.App.RelatedCareers.MessageFunctionApp.Startup
             builder.AddDependencyInjection();
             builder?.Services.AddAutoMapper(typeof(WebJobsExtensionStartup).Assembly);
             builder.Services.AddSingleton(segmentClientOptions);
-            builder.Services.AddScoped(sp => new HttpClient());
+            builder?.Services.AddHttpClient();
             builder?.Services.AddScoped<IHttpClientService, HttpClientService>();
             builder?.Services.AddScoped<IMessageProcessor, MessageProcessor>();
             builder?.Services.AddScoped<IMappingService, MappingService>();
