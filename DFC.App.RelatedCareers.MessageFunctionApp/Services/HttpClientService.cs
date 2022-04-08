@@ -20,12 +20,12 @@ namespace DFC.App.RelatedCareers.MessageFunctionApp.Services
 
         public HttpClientService(
             SegmentClientOptions segmentClientOptions,
-            HttpClient httpClient,
+            IHttpClientFactory httpClientFactory,
             ILogService logService,
             ICorrelationIdProvider correlationIdProvider)
         {
             this.segmentClientOptions = segmentClientOptions;
-            this.httpClient = httpClient;
+            this.httpClient = httpClientFactory.CreateClient();
             this.logService = logService;
             this.correlationIdProvider = correlationIdProvider;
         }
