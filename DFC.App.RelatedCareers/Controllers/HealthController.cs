@@ -65,6 +65,8 @@ namespace DFC.App.RelatedCareers.Controllers
 
         private HealthViewModel CreateHealthViewModel()
         {
+            logService.LogInformation($"{nameof(CreateHealthViewModel)} has been called");
+
             return new HealthViewModel
             {
                 HealthItems = new List<HealthItemViewModel>

@@ -32,6 +32,8 @@ namespace DFC.App.RelatedCareers.MessageFunctionApp.Services
 
         public async Task<HttpStatusCode> PostAsync(RelatedCareersSegmentModel relatedCareersSegmentModel)
         {
+            logService.LogInformation($"{nameof(PostAsync)} has been called with {nameof(relatedCareersSegmentModel)}");
+
             var url = new Uri($"{segmentClientOptions?.BaseAddress}segment");
             ConfigureHttpClient();
 
@@ -45,12 +47,15 @@ namespace DFC.App.RelatedCareers.MessageFunctionApp.Services
                     response.EnsureSuccessStatusCode();
                 }
 
+                logService.LogInformation($"{nameof(PostAsync)} reponse returning {response.StatusCode}");
                 return response.StatusCode;
             }
         }
 
         public async Task<HttpStatusCode> PutAsync(RelatedCareersSegmentModel relatedCareersSegmentModel)
         {
+            logService.LogInformation($"{nameof(PutAsync)} has been called with {nameof(relatedCareersSegmentModel)}");
+
             var url = new Uri($"{segmentClientOptions?.BaseAddress}segment");
             ConfigureHttpClient();
 
@@ -65,12 +70,15 @@ namespace DFC.App.RelatedCareers.MessageFunctionApp.Services
                     response.EnsureSuccessStatusCode();
                 }
 
+                logService.LogInformation($"{nameof(PutAsync)} response returning {response.StatusCode}");
                 return response.StatusCode;
             }
         }
 
         public async Task<HttpStatusCode> DeleteAsync(Guid id)
         {
+            logService.LogInformation($"{nameof(DeleteAsync)} has been called with {nameof(id)}");
+
             var url = new Uri($"{segmentClientOptions?.BaseAddress}segment/{id}");
             ConfigureHttpClient();
 
@@ -83,15 +91,20 @@ namespace DFC.App.RelatedCareers.MessageFunctionApp.Services
                 response.EnsureSuccessStatusCode();
             }
 
+            logService.LogInformation($"{nameof(DeleteAsync)} reponse returning {response.StatusCode}");
             return response.StatusCode;
         }
 
         private void ConfigureHttpClient()
         {
+            logService.LogInformation($"{nameof(ConfigureHttpClient)} has been called");
+
             if (!httpClient.DefaultRequestHeaders.Contains(HeaderName.CorrelationId))
             {
                 httpClient.DefaultRequestHeaders.Add(HeaderName.CorrelationId, correlationIdProvider.CorrelationId);
             }
+
+            logService.LogInformation($"{nameof(ConfigureHttpClient)} has been configured");
         }
     }
 }

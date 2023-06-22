@@ -13,6 +13,7 @@ namespace DFC.App.RelatedCareers.SegmentService
         private const int BatchSize = 500;
         private readonly ITopicClient topicClient;
         private readonly ICorrelationIdProvider correlationIdProvider;
+        private readonly ILogService logService;
 
         public JobProfileSegmentRefreshService(ITopicClient topicClient, ICorrelationIdProvider correlationIdProvider)
         {
