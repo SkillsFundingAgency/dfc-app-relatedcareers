@@ -32,8 +32,8 @@
         "cosmosDbCollectionName": {
             "value": "a-cosmos-collection"
         },
-        "enableAlerts": {
-            "value": false
+        "appInsightsInstrumentationKey": {
+            "value": "appInsightsInstrumentationKey"
         }
     }
 }
